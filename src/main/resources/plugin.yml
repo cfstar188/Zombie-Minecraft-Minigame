@@ -1,0 +1,5 @@
+name: ZombieGame
+version: '${project.version}'
+main: me.cfstar188.zombiegame.ZombieGame
+api-version: '1.20'
+

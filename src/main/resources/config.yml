@@ -1,0 +1,13 @@
+
+# cooldown is in seconds
+# material is the Minecraft item that will represent the specified healing
+healing:
+  - material: "blue_dye"
+    hearts-gained: 2.5
+    waiting-time: 1.2
+  - material: "red_dye"
+    hearts-gained: 5
+    waiting-time: 2.1
+
+kits:
+
