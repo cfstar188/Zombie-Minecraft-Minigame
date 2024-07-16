@@ -2,19 +2,19 @@ package me.cfstar188.zombiegame.items;
 
 public class HealingItem {
 
-    private final double healthRestored;
-    private final double waitingTime;
+    private final long healthRestored;
+    private final long waitingTime;
 
-    public HealingItem(double healthRestored, double waitingTime) {
+    public HealingItem(long healthRestored, long waitingTime) {
         this.healthRestored = healthRestored;
         this.waitingTime = waitingTime;
     }
 
-    public double getHealthRestored() {
+    public long getHealthRestored() {
         return healthRestored;
     }
 
-    public double getWaitingTime() {
+    public long getWaitingTime() {
         return waitingTime;
     }
 
