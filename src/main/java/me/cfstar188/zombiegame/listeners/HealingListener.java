@@ -36,15 +36,15 @@ public class HealingListener implements Listener {
         establishHashmap(Objects.requireNonNull(plugin.getConfig().getList("healing")));
     }
 
-    // establish materialToStates hashmap based on config.yml
+    // establish materialToStats hashmap based on config.yml
     private static void establishHashmap(List<?> healings) {
         for (Object healing : healings) {
 
             // extract data from healing
             String materialName = (String) ((LinkedHashMap<?, ?>) healing).get("material");
             Material material = Material.valueOf(materialName.toUpperCase());
-            long heartsGained = getLong(((LinkedHashMap<?, ?>) healing).get("hearts-gained"));
-            long waitingTime = getLong(((LinkedHashMap<?, ?>) healing).get("waiting-time"));
+            double heartsGained = getDouble(((LinkedHashMap<?, ?>) healing).get("hearts-gained"));
+            double waitingTime = getDouble(((LinkedHashMap<?, ?>) healing).get("waiting-time"));
 
             // put into hashmap
             materialToStats.put(material, new HealingItem(heartsGained * 2, waitingTime * 1000));
@@ -53,8 +53,8 @@ public class HealingListener implements Listener {
     }
 
     // helper method for establishHashmap
-    private static long getLong(Object obj) {
-        return ((Number) obj).longValue();
+    private static double getDouble(Object obj) {
+        return ((Number) obj).doubleValue();
     }
 
     @EventHandler
@@ -72,35 +72,36 @@ public class HealingListener implements Listener {
 
                 playerBars.add(playerUUID);
                 HealingItem healingItem = materialToStats.get(material);
-                long currentTime = System.currentTimeMillis();
 
                 // create and display the countdown timer
                 BossBar bossBar = Bukkit.createBossBar("", BarColor.RED, BarStyle.SOLID);
                 bossBar.addPlayer(player);
 
+                // runnable to cancel the healing if item in hand is switched
                 new BukkitRunnable() {
-                    final long endTime = currentTime + healingItem.getWaitingTime();
+                    final double endTime = System.currentTimeMillis() + healingItem.getWaitingTime();
 
                     @Override
                     public void run() {
-                        long timeLeft = endTime - System.currentTimeMillis();
 
                         // Check if the player changed the item in their hand
                         if (!inventory.getItemInMainHand().getType().equals(material)) {
-                            bossBar.setTitle("Healing canceled");
+                            bossBar.setTitle("§cHealing canceled");
                             new BukkitRunnable() {
                                 @Override
                                 public void run() {
                                     bossBar.removeAll();
                                     playerBars.remove(playerUUID);
                                 }
-                            }.runTaskLater(plugin, 5L); // display cancellation message for 5 ticks
+                            }.runTaskLater(plugin, 10L); // display cancellation message for 10 ticks
                             cancel();
                             return;
                         }
 
+                        // check if there is waiting time remaining
+                        double timeLeft = endTime - System.currentTimeMillis();
                         if (timeLeft > 0) {
-                            long progress = timeLeft / healingItem.getWaitingTime();
+                            double progress = timeLeft / healingItem.getWaitingTime();
                             bossBar.setProgress(progress);
                             bossBar.setTitle("Healing in: " + df.format(timeLeft / 1000.0) + "s");
                         } else {
@@ -111,13 +112,23 @@ public class HealingListener implements Listener {
                             } else {
                                 inventory.setItemInMainHand(null);
                             }
+
+                            // heal the player
                             player.setHealth(Math.min(20, player.getHealth() + healingItem.getHealthRestored()));
-                            bossBar.removeAll();
-                            playerBars.remove(playerUUID);
+
+                            // display healing confirmation message for 10 ticks
+                            bossBar.setTitle("§aHealing complete");
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    bossBar.removeAll();
+                                    playerBars.remove(playerUUID);
+                                }
+                            }.runTaskLater(plugin, 10L); // remove the boss bar after displaying the message for 10 ticks
                             cancel();
                         }
                     }
-                }.runTaskTimer(plugin, 0L, 1L);
+                }.runTaskTimer(plugin, 0L, 1L); // adjust timer for every tick
             }
         }
     }
