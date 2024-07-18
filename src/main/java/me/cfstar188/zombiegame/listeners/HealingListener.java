@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -87,13 +88,11 @@ public class HealingListener implements Listener {
                         // check if the player changed the item in their hand
                         if (!inventory.getItemInMainHand().getType().equals(material)) {
                             bossBar.setTitle("§cHealing canceled");
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    bossBar.removeAll();
-                                    playerBars.remove(playerUUID);
-                                }
-                            }.runTaskLater(plugin, 10L); // display cancellation message for 10 ticks
+
+                            // display cancellation message for 10 ticks before removing bar
+                            BukkitTask removeBar = new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
+
+                            // cancel timer task
                             cancel();
                             return;
                         }
@@ -119,13 +118,10 @@ public class HealingListener implements Listener {
 
                             // display healing confirmation message for 10 ticks
                             bossBar.setTitle("§aHealing complete");
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    bossBar.removeAll();
-                                    playerBars.remove(playerUUID);
-                                }
-                            }.runTaskLater(plugin, 10L); // remove the boss bar after displaying healing message for 10 ticks
+
+                            // display completion message for 10 ticks before removing bar
+                            BukkitTask removeBar = new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
+
                             cancel();
                         }
                     }
@@ -133,4 +129,22 @@ public class HealingListener implements Listener {
             }
         }
     }
+
+    // Bukkit runnable to remove boss bar (healing timer)
+    private static class RemoveBar extends BukkitRunnable {
+
+        private final UUID playerUUID;
+        private final BossBar bossBar;
+        public RemoveBar(UUID playerUUID, BossBar bossBar) {
+            this.playerUUID = playerUUID;
+            this.bossBar = bossBar;
+        }
+
+        @Override
+        public void run() {
+            bossBar.removeAll();
+            playerBars.remove(playerUUID);
+        }
+    }
+
 }
