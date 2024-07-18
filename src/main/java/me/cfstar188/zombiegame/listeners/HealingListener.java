@@ -77,14 +77,14 @@ public class HealingListener implements Listener {
                 BossBar bossBar = Bukkit.createBossBar("", BarColor.RED, BarStyle.SOLID);
                 bossBar.addPlayer(player);
 
-                // runnable to cancel the healing if item in hand is switched
+                // runnable to decrement timer
                 new BukkitRunnable() {
                     final double endTime = System.currentTimeMillis() + healingItem.getWaitingTime();
 
                     @Override
                     public void run() {
 
-                        // Check if the player changed the item in their hand
+                        // check if the player changed the item in their hand
                         if (!inventory.getItemInMainHand().getType().equals(material)) {
                             bossBar.setTitle("§cHealing canceled");
                             new BukkitRunnable() {
@@ -105,7 +105,8 @@ public class HealingListener implements Listener {
                             bossBar.setProgress(progress);
                             bossBar.setTitle("Healing in: " + df.format(timeLeft / 1000.0) + "s");
                         } else {
-                            // Remove one item from the player's inventory safely
+
+                            // remove an item from the player's inventory safely
                             ItemStack itemInHand = inventory.getItemInMainHand();
                             if (itemInHand.getAmount() > 1) {
                                 itemInHand.setAmount(itemInHand.getAmount() - 1);
@@ -124,11 +125,11 @@ public class HealingListener implements Listener {
                                     bossBar.removeAll();
                                     playerBars.remove(playerUUID);
                                 }
-                            }.runTaskLater(plugin, 10L); // remove the boss bar after displaying the message for 10 ticks
+                            }.runTaskLater(plugin, 10L); // remove the boss bar after displaying healing message for 10 ticks
                             cancel();
                         }
                     }
-                }.runTaskTimer(plugin, 0L, 1L); // adjust timer for every tick
+                }.runTaskTimer(plugin, 0L, 1L); // decrement timer for every tick
             }
         }
     }
