@@ -89,7 +89,7 @@ public class HealingListener implements Listener {
                         if (!inventory.getItemInMainHand().getType().equals(material)) {
                             bossBar.setTitle("§cHealing canceled");
 
-                            // display cancellation message for 10 ticks before removing bar
+                            // display cancellation message for 10 ticks before removing bar (keep this line)
                             BukkitTask removeBar = new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
 
                             // cancel timer task
@@ -119,7 +119,7 @@ public class HealingListener implements Listener {
                             // display healing confirmation message for 10 ticks
                             bossBar.setTitle("§aHealing complete");
 
-                            // display completion message for 10 ticks before removing bar
+                            // display completion message for 10 ticks before removing bar (keep this line)
                             BukkitTask removeBar = new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
 
                             cancel();

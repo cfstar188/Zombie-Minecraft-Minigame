@@ -26,7 +26,7 @@ public class KitCommand implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can access kits");
-            return true;
+            return false;
         }
 
         Player player = (Player) sender;
@@ -35,10 +35,11 @@ public class KitCommand implements CommandExecutor {
 
         ItemStack getDiamondButton = new ItemStack(Material.DIAMOND);
         ItemMeta diamondMeta = getDiamondButton.getItemMeta();
-        diamondMeta.setDisplayName(ChatColor.AQUA + "Get Diamond");
+        assert diamondMeta != null;
+        diamondMeta.setDisplayName(ChatColor.AQUA + "Summon a storm!");
         getDiamondButton.setItemMeta(diamondMeta);
 
-        inventory.setItem(11, getDiamondButton);
+        inventory.setItem(13, getDiamondButton);
 
         player.openInventory(inventory);
         player.setMetadata("opened", new FixedMetadataValue(plugin, inventory));

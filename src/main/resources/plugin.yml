@@ -4,5 +4,9 @@ main: me.cfstar188.zombiegame.ZombieGame
 api-version: '1.20'
 commands:
   kits:
-
+    description: Open the kit menu
+    usage: /kits
+    aliases:
+      - kit
+      - k
 

@@ -2,10 +2,10 @@
 # cooldown is in seconds
 # material must be a valid Minecraft item
 healing:
-  - material: "blue_dye" # must be surrounded by quotes!
+  - material: blue_dye
     hearts-gained: 2.5
     waiting-time: 1.2
-  - material: "red_dye"
+  - material: red_dye
     hearts-gained: 5
     waiting-time: 2.1
 
