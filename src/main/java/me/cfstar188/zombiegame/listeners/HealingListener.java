@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -90,7 +89,7 @@ public class HealingListener implements Listener {
                             bossBar.setTitle("§cHealing canceled");
 
                             // display cancellation message for 10 ticks before removing bar (keep this line)
-                            BukkitTask removeBar = new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
+                            new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
 
                             // cancel timer task
                             cancel();
@@ -120,7 +119,7 @@ public class HealingListener implements Listener {
                             bossBar.setTitle("§aHealing complete");
 
                             // display completion message for 10 ticks before removing bar (keep this line)
-                            BukkitTask removeBar = new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
+                            new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
 
                             cancel();
                         }

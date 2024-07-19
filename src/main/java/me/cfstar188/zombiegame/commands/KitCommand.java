@@ -1,6 +1,7 @@
 package me.cfstar188.zombiegame.commands;
 
 import me.cfstar188.zombiegame.ZombieGame;
+import me.cfstar188.zombiegame.gui.KitGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,24 +26,26 @@ public class KitCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Only players can access kits");
-            return false;
+            sender.sendMessage(ChatColor.RED + "Only players can access kits");
+            return true;
         }
 
         Player player = (Player) sender;
 
-        Inventory inventory = Bukkit.createInventory(player, 9 * 3, "Kits");
+//        Inventory inventory = Bukkit.createInventory(player, 9 * 3, "Kits");
+//
+//        ItemStack getDiamondButton = new ItemStack(Material.DIAMOND);
+//        ItemMeta diamondMeta = getDiamondButton.getItemMeta();
+//        assert diamondMeta != null;
+//        diamondMeta.setDisplayName(ChatColor.AQUA + "Summon a storm!");
+//        getDiamondButton.setItemMeta(diamondMeta);
+//
+//        inventory.setItem(13, getDiamondButton);
+//
+//        player.openInventory(inventory);
+//        player.setMetadata("opened", new FixedMetadataValue(plugin, inventory));
 
-        ItemStack getDiamondButton = new ItemStack(Material.DIAMOND);
-        ItemMeta diamondMeta = getDiamondButton.getItemMeta();
-        assert diamondMeta != null;
-        diamondMeta.setDisplayName(ChatColor.AQUA + "Summon a storm!");
-        getDiamondButton.setItemMeta(diamondMeta);
-
-        inventory.setItem(13, getDiamondButton);
-
-        player.openInventory(inventory);
-        player.setMetadata("opened", new FixedMetadataValue(plugin, inventory));
+        new KitGUI(player);
 
         return true;
         

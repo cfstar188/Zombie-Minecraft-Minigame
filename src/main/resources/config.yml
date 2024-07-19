@@ -10,4 +10,7 @@ healing:
     waiting-time: 2.1
 
 kits:
+  - name:
+    items:
+    slot:
 
