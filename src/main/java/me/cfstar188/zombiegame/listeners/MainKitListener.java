@@ -65,7 +65,9 @@ public class MainKitListener implements Listener {
 
             System.out.println("\nARMOR");
             List<?> armorData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("armor");
-            ArrayList<ItemStack> armor = establishArmor(armorData);
+
+            System.out.println(armorData);
+            HashMap<String, ItemStack> armor = establishArmor(armorData);
 
             // error checking
             if (armor.isEmpty()) {
@@ -116,9 +118,9 @@ public class MainKitListener implements Listener {
     }
 
     // return the array of ItemStacks of armor
-    private ArrayList<ItemStack> establishArmor(List<?> armorData) {
+    private HashMap<String, ItemStack> establishArmor(List<?> armorData) {
 
-        ArrayList<ItemStack> armor = new ArrayList<>();
+        HashMap<String, ItemStack> armor = new HashMap<>();
 
         for (Object armorPiece: armorData) {
 
@@ -127,17 +129,45 @@ public class MainKitListener implements Listener {
 
             // error checking
             if (material == null) {
-                System.out.println("ERROR: " + materialName + " IS AN INVALID MINECRAFT ITEM");
+                System.out.println("ERROR: " + materialName + " IS AN INVALID ARMOR PIECE");
                 material = Material.BARRIER;
             }
 
-            armor.add(new ItemStack(material));
-            System.out.println(materialName);
+            String armorType = getArmorType(materialName);
+
+            if (armorType.isEmpty()) {
+                System.out.println("ERROR: " + materialName + " IS AN INVALID ARMOR PIECE");
+            }
+
+            armor.put(armorType, new ItemStack(material));
 
         }
-
         return armor;
 
+    }
+
+    // returns either helmet, chestplate, leggings, or boots
+    private String getArmorType(String materialName) {
+
+        switch (getSuffix(materialName)) {
+            case "HELMET":
+                return "helmet";
+            case "CHESTPLATE":
+                return "chestplate";
+            case "LEGGINGS":
+                return "leggings";
+            case "BOOTS":
+                return "boots";
+            default:
+                return "";
+        }
+
+    }
+
+    // get the suffix from the material name by trimming everything before the last underscore
+    private static String getSuffix(String materialName) {
+        int lastUnderscoreIndex = materialName.lastIndexOf('_');
+        return materialName.substring(lastUnderscoreIndex + 1);
     }
 
     public static int getKitGUISize() {

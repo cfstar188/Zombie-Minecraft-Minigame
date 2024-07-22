@@ -13,21 +13,342 @@ custom-items:
   - bababooey
 
 kits:
-  - name: Diamond Warrior
-    representative-item: diamond_block
-    slot: 4
+  - name: Iron Defender
+    representative-item: iron_block
+    slot: 5
     items:
-      - name: diamond_sword
+      - name: iron_sword
+        quantity: 1
+      - name: shield
+        quantity: 1
+      - name: bread
+        quantity: 32
+    armor:
+      - iron_helmet
+      - iron_chestplate
+      - iron_leggings
+      - iron_boots
+
+  - name: Gold Archer
+    representative-item: gold_block
+    slot: 6
+    items:
+      - name: gold_sword
         quantity: 1
       - name: bow
         quantity: 1
       - name: arrow
         quantity: 64
     armor:
-      - helmet: diamond_helmet
-      - chestplate: diamond_chestplate
-      - leggings: diamond_leggings
-      - boots: diamond_boots
+      - gold_helmet
+      - gold_chestplate
+      - gold_leggings
+      - gold_boots
+
+  - name: Leather Scout
+    representative-item: leather
+    slot: 7
+    items:
+      - name: wooden_sword
+        quantity: 1
+      - name: compass
+        quantity: 1
+      - name: cooked_porkchop
+        quantity: 16
+    armor:
+      - leather_helmet
+      - leather_chestplate
+      - leather_leggings
+      - leather_boots
+
+  - name: Emerald Mage
+    representative-item: emerald
+    slot: 8
+    items:
+      - name: enchanted_book
+        quantity: 1
+      - name: potion
+        quantity: 3
+      - name: bread
+        quantity: 16
+    armor:
+      - emerald_helmet
+      - emerald_chestplate
+      - emerald_leggings
+      - emerald_boots
+
+  - name: Nether Warrior
+    representative-item: nether_brick
+    slot: 9
+    items:
+      - name: netherite_sword
+        quantity: 1
+      - name: crossbow
+        quantity: 1
+      - name: cooked_beef
+        quantity: 32
+    armor:
+      - netherite_helmet
+      - netherite_chestplate
+      - netherite_leggings
+      - netherite_boots
+
+  - name: Ender Slayer
+    representative-item: end_stone
+    slot: 10
+    items:
+      - name: diamond_sword
+        quantity: 1
+      - name: ender_pearl
+        quantity: 5
+      - name: cooked_beef
+        quantity: 16
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+  - name: Snow Warrior
+    representative-item: snow_block
+    slot: 11
+    items:
+      - name: iron_sword
+        quantity: 1
+      - name: snow_ball
+        quantity: 32
+      - name: carrot
+        quantity: 16
+    armor:
+      - iron_helmet
+      - iron_chestplate
+      - iron_leggings
+      - iron_boots
+
+  - name: Jungle Explorer
+    representative-item: melon
+    slot: 12
+    items:
+      - name: stone_sword
+        quantity: 1
+      - name: shears
+        quantity: 1
+      - name: apples
+        quantity: 16
+    armor:
+      - leather_helmet
+      - leather_chestplate
+      - leather_leggings
+      - leather_boots
+
+  - name: Desert Nomad
+    representative-item: sand
+    slot: 13
+    items:
+      - name: wooden_sword
+        quantity: 1
+      - name: map
+        quantity: 1
+      - name: dried_kelp
+        quantity: 32
+    armor:
+      - chainmail_helmet
+      - chainmail_chestplate
+      - chainmail_leggings
+      - chainmail_boots
+
+  - name: Oceanic Guardian
+    representative-item: prismarine
+    slot: 14
+    items:
+      - name: trident
+        quantity: 1
+      - name: underwater_torch
+        quantity: 10
+      - name: cooked_beef
+        quantity: 16
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+  - name: Forest Ranger
+    representative-item: oak_log
+    slot: 15
+    items:
+      - name: stone_axe
+        quantity: 1
+      - name: bow
+        quantity: 1
+      - name: cookies
+        quantity: 16
+    armor:
+      - leather_helmet
+      - leather_chestplate
+      - leather_leggings
+      - leather_boots
+
+  - name: Cavern Crawler
+    representative-item: coal
+    slot: 16
+    items:
+      - name: iron_pickaxe
+        quantity: 1
+      - name: torch
+        quantity: 64
+      - name: bread
+        quantity: 16
+    armor:
+      - iron_helmet
+      - iron_chestplate
+      - iron_leggings
+      - iron_boots
+
+  - name: Volcano Fighter
+    representative-item: magma_block
+    slot: 17
+    items:
+      - name: diamond_sword
+        quantity: 1
+      - name: fire_charge
+        quantity: 10
+      - name: cooked_beef
+        quantity: 16
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+  - name: Sky Knight
+    representative-item: blue_ice
+    slot: 18
+    items:
+      - name: diamond_sword
+        quantity: 1
+      - name: elytra
+        quantity: 1
+      - name: golden_carrot
+        quantity: 16
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+  - name: Shadow Assassin
+    representative-item: obsidian
+    slot: 19
+    items:
+      - name: netherite_sword
+        quantity: 1
+      - name: invisibility_potion
+        quantity: 1
+      - name: cooked_beef
+        quantity: 16
+    armor:
+      - netherite_helmet
+      - netherite_chestplate
+      - netherite_leggings
+      - netherite_boots
+
+  - name: Lunar Guardian
+    representative-item: glowstone
+    slot: 20
+    items:
+      - name: diamond_sword
+        quantity: 1
+      - name: moon_rock
+        quantity: 5
+      - name: apple
+        quantity: 16
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+  - name: Pirate Captain
+    representative-item: emerald
+    slot: 21
+    items:
+      - name: gold_sword
+        quantity: 1
+      - name: compass
+        quantity: 1
+      - name: cooked_beef
+        quantity: 16
+    armor:
+      - gold_helmet
+      - gold_chestplate
+      - gold_leggings
+      - gold_boots
+
+  - name: Alchemist
+    representative-item: brewing_stand
+    slot: 22
+    items:
+      - name: potion
+        quantity: 5
+      - name: glass_bottle
+        quantity: 3
+      - name: bread
+        quantity: 16
+    armor:
+      - leather_helmet
+      - leather_chestplate
+      - leather_leggings
+      - leather_boots
+
+  - name: Forest Sentinel
+    representative-item: leaf
+    slot: 23
+    items:
+      - name: wooden_sword
+        quantity: 1
+      - name: oak_sapling
+        quantity: 5
+      - name: cookies
+        quantity: 16
+    armor:
+      - leather_helmet
+      - leather_chestplate
+      - leather_leggings
+      - leather_boots
+
+  - name: Arcane Warrior
+    representative-item: lapis_block
+    slot: 24
+    items:
+      - name: enchanted_sword
+        quantity: 1
+      - name: magic_potion
+        quantity: 3
+      - name: bread
+        quantity: 16
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+  - name: Mountain Warrior
+    representative-item: cobblestone
+    slot: 25
+    items:
+      - name: iron_axe
+        quantity: 1
+      - name: cooked_beef
+        quantity: 16
+      - name: torches
+        quantity: 32
+    armor:
+      - iron_helmet
+      - iron_chestplate
+      - iron_leggings
+      - iron_boots
+
 
 
 

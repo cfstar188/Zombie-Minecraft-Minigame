@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Kit {
 
@@ -11,9 +12,9 @@ public class Kit {
     private final int slot;
     private final ItemStack representativeItem;
     private final ArrayList<ItemStack> items;
-    private final ArrayList<ItemStack> armor;
+    private final HashMap<String, ItemStack> armor;
 
-    public Kit(String name, int slot, ItemStack representativeItem, ArrayList<ItemStack> items, ArrayList<ItemStack> armor) {
+    public Kit(String name, int slot, ItemStack representativeItem, ArrayList<ItemStack> items, HashMap<String, ItemStack> armor) {
         this.name = name;
         this.slot = slot;
         this.representativeItem = representativeItem;
@@ -37,22 +38,22 @@ public class Kit {
         return items;
     }
 
-    public ArrayList<ItemStack> getArmor() {
+    public HashMap<String, ItemStack> getArmor() {
         return armor;
     }
 
     public void giveKit(Player player) {
 
-        // convert ArrayLists to normal arrays
+        // give player items
         ItemStack[] itemsArray = new ItemStack[items.size()];
         itemsArray = items.toArray(itemsArray);
-        ItemStack[] armorArray = new ItemStack[armor.size()];
-        armorArray = armor.toArray(armorArray);
-
-        // give player items
         player.getInventory().setContents(itemsArray);
-        player.getInventory().setArmorContents(armorArray);
 
+        // put armor on player
+        player.getInventory().setHelmet(armor.get("helmet"));
+        player.getInventory().setChestplate(armor.get("chestplate"));
+        player.getInventory().setLeggings(armor.get("leggings"));
+        player.getInventory().setBoots(armor.get("boots"));
 
     }
 

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DisplayKitGUI {
 
@@ -41,7 +42,7 @@ public class DisplayKitGUI {
     private void setItems(Inventory inventory, Kit kit) {
 
         ArrayList<ItemStack> items = kit.getItems();
-        ArrayList<ItemStack> armor = kit.getArmor();
+        HashMap<String, ItemStack> armor = kit.getArmor();
 
         int currSlot = 18;
 
@@ -50,7 +51,7 @@ public class DisplayKitGUI {
             currSlot++;
         }
 
-        for (ItemStack armorPiece : armor) {
+        for (ItemStack armorPiece : armor.values()) {
             inventory.setItem(currSlot, armorPiece);
             currSlot++;
         }
