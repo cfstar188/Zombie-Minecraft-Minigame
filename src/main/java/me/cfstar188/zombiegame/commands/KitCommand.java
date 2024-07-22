@@ -1,7 +1,7 @@
 package me.cfstar188.zombiegame.commands;
 
 import me.cfstar188.zombiegame.ZombieGame;
-import me.cfstar188.zombiegame.gui.KitGUI;
+import me.cfstar188.zombiegame.gui.MainKitGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,28 +25,14 @@ public class KitCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
+        // only players should be able to access kits
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Only players can access kits");
             return true;
         }
 
         Player player = (Player) sender;
-
-//        Inventory inventory = Bukkit.createInventory(player, 9 * 3, "Kits");
-//
-//        ItemStack getDiamondButton = new ItemStack(Material.DIAMOND);
-//        ItemMeta diamondMeta = getDiamondButton.getItemMeta();
-//        assert diamondMeta != null;
-//        diamondMeta.setDisplayName(ChatColor.AQUA + "Summon a storm!");
-//        getDiamondButton.setItemMeta(diamondMeta);
-//
-//        inventory.setItem(13, getDiamondButton);
-//
-//        player.openInventory(inventory);
-//        player.setMetadata("opened", new FixedMetadataValue(plugin, inventory));
-
-        new KitGUI(player);
-
+        new MainKitGUI(player);
         return true;
         
     }

@@ -9,8 +9,25 @@ healing:
     hearts-gained: 5
     waiting-time: 2.1
 
+custom-items:
+  - bababooey
+
 kits:
-  - name:
+  - name: Diamond Warrior
+    representative-item: diamond_block
+    slot: 4
     items:
-    slot:
+      - name: diamond_sword
+        quantity: 1
+      - name: bow
+        quantity: 1
+      - name: arrow
+        quantity: 64
+    armor:
+      - diamond_helmet
+      - diamond_chestplate
+      - diamond_leggings
+      - diamond_boots
+
+
 
