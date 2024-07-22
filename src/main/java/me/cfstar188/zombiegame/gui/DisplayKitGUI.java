@@ -1,7 +1,6 @@
 package me.cfstar188.zombiegame.gui;
 
 import me.cfstar188.zombiegame.kits.Kit;
-import me.cfstar188.zombiegame.listeners.KitListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +21,16 @@ public class DisplayKitGUI {
         ItemMeta backButtonMeta = backButton.getItemMeta();
         assert backButtonMeta != null;
         backButtonMeta.setDisplayName("Back");
+        backButton.setItemMeta(backButtonMeta);
         inventory.setItem(0, backButton);
+
+        // set the confirm button for the inventory
+        ItemStack confirmButton = new ItemStack(Material.EMERALD_BLOCK);
+        ItemMeta confirmButtonMeta = backButton.getItemMeta();
+        assert confirmButtonMeta != null;
+        confirmButtonMeta.setDisplayName("Confirm");
+        confirmButton.setItemMeta(confirmButtonMeta);
+        inventory.setItem(44, confirmButton);
 
         // set all items in the inventory
         setItems(inventory, kit);
