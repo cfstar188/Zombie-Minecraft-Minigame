@@ -16,12 +16,11 @@ public class MainKitGUI {
     public MainKitGUI(Player player) {
 
         Inventory inventory = Bukkit.createInventory(null, MainKitListener.getKitGUISize(), "Kits");
-        HashMap<Integer, Kit> slotToKit = MainKitListener.getSlotToKit();
+        HashMap<String, Kit> nameToKit = MainKitListener.getNameToKit();
 
         // loop through each of the kits, giving each a spot in the KitGUI
-        for (Map.Entry<Integer, Kit> entry : slotToKit.entrySet()) {
+        for (Map.Entry<String, Kit> entry : nameToKit.entrySet()) {
 
-            int slot = entry.getKey();
             Kit kit = entry.getValue();
 
             ItemStack representativeItem = kit.getRepresentativeItem();
@@ -32,7 +31,7 @@ public class MainKitGUI {
             // change lore of representative item to list the contents of the kit
             // changeLore(representativeItem);
 
-            inventory.setItem(slot, representativeItem);
+            inventory.setItem(kit.getSlot(), representativeItem);
         }
 
         player.openInventory(inventory);

@@ -15,7 +15,7 @@ import java.util.*;
 public class MainKitListener implements Listener {
 
     private final ZombieGame plugin;
-    private static final HashMap<Integer, Kit> slotToKit = new HashMap<>();
+    private static final HashMap<String, Kit> nameToKit = new HashMap<>();
     private static int kitGUISize;
     private static final HashSet<String> kitNames = new HashSet<>();
 
@@ -79,7 +79,7 @@ public class MainKitListener implements Listener {
             }
 
             // put into hashmap
-            slotToKit.put(slot, new Kit(kitName, representativeItem, items, armor));
+            nameToKit.put(kitName, new Kit(kitName, slot, representativeItem, items, armor));
 
         }
 
@@ -144,8 +144,8 @@ public class MainKitListener implements Listener {
         return kitGUISize;
     }
 
-    public static HashMap<Integer, Kit> getSlotToKit() {
-        return slotToKit;
+    public static HashMap<String, Kit> getNameToKit() {
+        return nameToKit;
     }
 
     public static HashSet<String> getKitNames() {
@@ -163,7 +163,7 @@ public class MainKitListener implements Listener {
             Player player = (Player) event.getWhoClicked();
 
             // what kit did the player select
-            Kit selectedKit = slotToKit.get(event.getSlot());
+            Kit selectedKit = nameToKit.get(Objects.requireNonNull(event.getCurrentItem().getItemMeta()).getDisplayName());
 
             new DisplayKitGUI(player, selectedKit);
 

@@ -24,10 +24,10 @@ kits:
       - name: arrow
         quantity: 64
     armor:
-      - diamond_helmet
-      - diamond_chestplate
-      - diamond_leggings
-      - diamond_boots
+      - helmet: diamond_helmet
+      - chestplate: diamond_chestplate
+      - leggings: diamond_leggings
+      - boots: diamond_boots
 
 
 

@@ -9,9 +9,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ConfirmKitGUI {
 
-    public ConfirmKitGUI(Player player) {
+    public ConfirmKitGUI(Player player, String kitName) {
 
-        Inventory inventory = Bukkit.createInventory(null, 45, "Confirm"); // temporary
+        Inventory inventory = Bukkit.createInventory(null, 45, "Confirm " + kitName); // temporary
 
         // set the back buttons for the inventory
         ItemStack backButton = new ItemStack(Material.REDSTONE_BLOCK);
