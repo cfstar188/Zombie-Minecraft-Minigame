@@ -1,6 +1,8 @@
 package me.cfstar188.zombiegame;
 
 import me.cfstar188.zombiegame.commands.KitCommand;
+import me.cfstar188.zombiegame.configs.HealingConfig;
+import me.cfstar188.zombiegame.configs.MainKitConfig;
 import me.cfstar188.zombiegame.listeners.ConfirmKitListener;
 import me.cfstar188.zombiegame.listeners.DisplayKitListener;
 import me.cfstar188.zombiegame.listeners.HealingListener;
@@ -19,10 +21,14 @@ public final class ZombieGame extends JavaPlugin {
 
         // register events
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new HealingListener(this), this);
-        pluginManager.registerEvents(new MainKitListener(this), this);
+        pluginManager.registerEvents(new HealingListener(), this);
+        pluginManager.registerEvents(new MainKitListener(), this);
         pluginManager.registerEvents(new DisplayKitListener(), this);
         pluginManager.registerEvents(new ConfirmKitListener(), this);
+
+        // register configs
+        new HealingConfig(this);
+        new MainKitConfig(this);
 
         // register commands
         Objects.requireNonNull(getCommand("kits")).setExecutor(new KitCommand(this));

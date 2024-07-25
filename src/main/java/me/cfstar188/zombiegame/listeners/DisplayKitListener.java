@@ -1,8 +1,8 @@
 package me.cfstar188.zombiegame.listeners;
 
+import me.cfstar188.zombiegame.configs.MainKitConfig;
 import me.cfstar188.zombiegame.gui.ConfirmKitGUI;
 import me.cfstar188.zombiegame.gui.MainKitGUI;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +15,7 @@ public class DisplayKitListener implements Listener {
 
         String inventoryName = event.getView().getTitle();
 
-        if (MainKitListener.getKitNames().contains(inventoryName) && event.getCurrentItem() != null) {
+        if (MainKitConfig.getKitNames().contains(inventoryName) && event.getCurrentItem() != null) {
 
             // ensures items cannot be placed into player's main inventory
             event.setCancelled(true);
@@ -28,7 +28,7 @@ public class DisplayKitListener implements Listener {
                     new MainKitGUI(player);
                     break;
                 case 44:
-                    new ConfirmKitGUI(player, inventoryName);
+                    new ConfirmKitGUI(player, event.getClickedInventory());
             }
         }
     }

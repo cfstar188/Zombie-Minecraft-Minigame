@@ -1,6 +1,6 @@
 package me.cfstar188.zombiegame.listeners;
 
-import me.cfstar188.zombiegame.gui.ConfirmKitGUI;
+import me.cfstar188.zombiegame.configs.MainKitConfig;
 import me.cfstar188.zombiegame.gui.MainKitGUI;
 import me.cfstar188.zombiegame.kits.Kit;
 import org.bukkit.Material;
@@ -16,7 +16,7 @@ public class ConfirmKitListener implements Listener {
 
         String inventoryName = parseInventoryName(event.getView().getTitle());
 
-        if (MainKitListener.getKitNames().contains(inventoryName) && event.getCurrentItem() != null) {
+        if (MainKitConfig.getKitNames().contains(inventoryName) && event.getCurrentItem() != null) {
 
             // ensures items cannot be placed into player's main inventory
             event.setCancelled(true);
@@ -31,7 +31,7 @@ public class ConfirmKitListener implements Listener {
                 case EMERALD_BLOCK:
                     player.closeInventory();
                     player.getInventory().clear();
-                    Kit kit = MainKitListener.getNameToKit().get(inventoryName);
+                    Kit kit = MainKitConfig.getNameToKit().get(inventoryName);
                     kit.giveKit(player);
             }
 

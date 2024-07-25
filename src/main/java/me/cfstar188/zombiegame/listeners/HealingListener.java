@@ -1,6 +1,7 @@
 package me.cfstar188.zombiegame.listeners;
 
 import me.cfstar188.zombiegame.ZombieGame;
+import me.cfstar188.zombiegame.configs.HealingConfig;
 import me.cfstar188.zombiegame.items.HealingItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,44 +19,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.HashSet;
 
 public class HealingListener implements Listener {
 
-    private static final HashMap<Material, HealingItem> materialToStats = new HashMap<>();
-    private static final HashSet<UUID> playerBars = new HashSet<>(); // does the player currently have a healing bar?
     private static final DecimalFormat df = new DecimalFormat("#.##"); // timer will display up to 100th of a second
-    private final ZombieGame plugin;
-
-    public HealingListener(ZombieGame plugin) {
-        this.plugin = plugin;
-        establishHashmap(Objects.requireNonNull(plugin.getConfig().getList("healing")));
-    }
-
-    // establish materialToStats hashmap based on config.yml
-    private static void establishHashmap(List<?> healings) {
-        for (Object healing : healings) {
-
-            // extract data from healing
-            String materialName = (String) ((LinkedHashMap<?, ?>) healing).get("material");
-            Material material = Material.valueOf(materialName.toUpperCase());
-            double heartsGained = getDouble(((LinkedHashMap<?, ?>) healing).get("hearts-gained"));
-            double waitingTime = getDouble(((LinkedHashMap<?, ?>) healing).get("waiting-time"));
-
-            // put into hashmap
-            materialToStats.put(material, new HealingItem(heartsGained * 2, waitingTime * 1000));
-
-        }
-    }
-
-    // helper method for establishHashmap
-    private static double getDouble(Object obj) {
-        return ((Number) obj).doubleValue();
-    }
 
     @EventHandler
     public void onPlayerHeal(PlayerInteractEvent event) {
@@ -67,6 +36,9 @@ public class HealingListener implements Listener {
             Material material = inventory.getItemInMainHand().getType();
             UUID playerUUID = player.getUniqueId();
 
+            HashMap<Material, HealingItem> materialToStats = HealingConfig.getMaterialToStats();
+            HashSet<UUID> playerBars = HealingConfig.getPlayerBars();
+
             // if player is less than full health and does not currently have a boss bar timer
             if (materialToStats.containsKey(material) && player.getHealth() < 20 && !playerBars.contains(playerUUID)) {
 
@@ -76,6 +48,8 @@ public class HealingListener implements Listener {
                 // create and display the countdown timer
                 BossBar bossBar = Bukkit.createBossBar("", BarColor.RED, BarStyle.SOLID);
                 bossBar.addPlayer(player);
+
+                ZombieGame plugin = HealingConfig.getPlugin();
 
                 // runnable to decrement timer
                 new BukkitRunnable() {
@@ -89,7 +63,7 @@ public class HealingListener implements Listener {
                             bossBar.setTitle("§cHealing canceled");
 
                             // display cancellation message for 10 ticks before removing bar (keep this line)
-                            new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
+                            new RemoveBar(playerUUID, bossBar, playerBars).runTaskLater(plugin, 10L);
 
                             // cancel timer task
                             cancel();
@@ -119,7 +93,7 @@ public class HealingListener implements Listener {
                             bossBar.setTitle("§aHealing complete");
 
                             // display completion message for 10 ticks before removing bar (keep this line)
-                            new RemoveBar(playerUUID, bossBar).runTaskLater(plugin, 10L);
+                            new RemoveBar(playerUUID, bossBar, playerBars).runTaskLater(plugin, 10L);
 
                             cancel();
                         }
@@ -134,9 +108,12 @@ public class HealingListener implements Listener {
 
         private final UUID playerUUID;
         private final BossBar bossBar;
-        public RemoveBar(UUID playerUUID, BossBar bossBar) {
+        private final HashSet<UUID> playerBars;
+
+        public RemoveBar(UUID playerUUID, BossBar bossBar, HashSet<UUID> playerBars) {
             this.playerUUID = playerUUID;
             this.bossBar = bossBar;
+            this.playerBars = playerBars;
         }
 
         @Override

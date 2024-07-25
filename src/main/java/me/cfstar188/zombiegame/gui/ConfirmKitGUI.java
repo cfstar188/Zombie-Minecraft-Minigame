@@ -17,7 +17,7 @@ public class ConfirmKitGUI {
         ItemStack backButton = new ItemStack(Material.REDSTONE_BLOCK);
         ItemMeta backButtonMeta = backButton.getItemMeta();
         assert backButtonMeta != null;
-        backButtonMeta.setDisplayName("Click to cancel");
+        backButtonMeta.setDisplayName("§cClick to cancel");
         backButton.setItemMeta(backButtonMeta);
         for (int slot = 0; slot < 18; slot++) {
             inventory.setItem(slot, backButton);
@@ -27,7 +27,7 @@ public class ConfirmKitGUI {
         ItemStack confirmButton = new ItemStack(Material.EMERALD_BLOCK);
         ItemMeta confirmButtonMeta = backButton.getItemMeta();
         assert confirmButtonMeta != null;
-        confirmButtonMeta.setDisplayName("Click to confirm");
+        confirmButtonMeta.setDisplayName("§aClick to confirm");
         confirmButton.setItemMeta(confirmButtonMeta);
         for (int slot = 27; slot < 45; slot++) {
             inventory.setItem(slot, confirmButton);

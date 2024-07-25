@@ -1,7 +1,7 @@
 package me.cfstar188.zombiegame.gui;
 
+import me.cfstar188.zombiegame.configs.MainKitConfig;
 import me.cfstar188.zombiegame.kits.Kit;
-import me.cfstar188.zombiegame.listeners.MainKitListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -15,8 +15,8 @@ public class MainKitGUI {
 
     public MainKitGUI(Player player) {
 
-        Inventory inventory = Bukkit.createInventory(null, MainKitListener.getKitGUISize(), "Kits");
-        HashMap<String, Kit> nameToKit = MainKitListener.getNameToKit();
+        Inventory inventory = Bukkit.createInventory(null, MainKitConfig.getKitGUISize(), "Kits");
+        HashMap<String, Kit> nameToKit = MainKitConfig.getNameToKit();
 
         // loop through each of the kits, giving each a spot in the KitGUI
         for (Map.Entry<String, Kit> entry : nameToKit.entrySet()) {
