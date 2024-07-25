@@ -1,6 +1,6 @@
 package me.cfstar188.zombiegame.commands;
 
-import me.cfstar188.zombiegame.ZombieGame;
+import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.gui.MainKitGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,21 +10,16 @@ import org.bukkit.entity.Player;
 
 public class KitCommand implements CommandExecutor {
 
-    private final ZombieGame plugin;
-
-    public KitCommand(ZombieGame plugin) {
-        this.plugin = plugin;
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
-        // only players should be able to access kits
+        // only players should be able to use /kits
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can access kits");
+            sender.sendMessage(CustomError.getCustomError("Only players can access kits"));
             return true;
         }
 
+        // open Kit GUI for the player that sent the command
         Player player = (Player) sender;
         new MainKitGUI(player);
         return true;

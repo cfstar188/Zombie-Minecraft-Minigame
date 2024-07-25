@@ -1,20 +1,31 @@
 package me.cfstar188.zombiegame.configs;
 
 import me.cfstar188.zombiegame.ZombieGame;
+import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-public class MainKitConfig {
+/*
+Saves the data about kits from config.yml
+*/
+public class KitConfig {
 
+    private static KitConfig instance; // for singleton design pattern
     private static final HashMap<String, Kit> nameToKit = new HashMap<>();
     private static int kitGUISize;
-    private static final HashSet<String> kitNames = new HashSet<>();
 
-    public MainKitConfig(ZombieGame plugin) {
+    private KitConfig(ZombieGame plugin) {
         establishKits(Objects.requireNonNull(plugin.getConfig().getList("kits")));
+    }
+
+    // there should only ever be one instance of KitConfig
+    public static synchronized void getInstance(ZombieGame plugin) {
+        if (instance == null) {
+            instance = new KitConfig(plugin);
+        }
     }
 
     private void establishKits(List<?> kits) {
@@ -23,53 +34,55 @@ public class MainKitConfig {
 
         for (Object kit : kits) {
 
-            System.out.println("\nKIT");
             // extract data from kit
             String kitName = (String) ((LinkedHashMap<?, ?>) kit).get("name");
-            kitNames.add(kitName);
-            System.out.println(kitName);
 
             // dealing with representative item
             String representativeItemName = ((String) ((LinkedHashMap<?, ?>) kit).get("representative-item")).toUpperCase();
-            System.out.println(representativeItemName);
             Material material = Material.valueOf(representativeItemName);
 
             // error checking
             if (material == null) {
-                System.out.println("ERROR: " + representativeItemName + " IS AN INVALID MINECRAFT ITEM");
+                System.out.println(CustomError.getInvalidMaterialError(representativeItemName));
                 material = Material.BARRIER;
             }
 
             ItemStack representativeItem = new ItemStack(Material.valueOf(representativeItemName));
 
             Integer slot = (Integer) ((LinkedHashMap<?, ?>) kit).get("slot");
-            System.out.println(slot + "\n");
             maxSlot = Math.max(maxSlot, slot);
 
-            // extracting item data
-            System.out.println("ITEMS");
-            List<?> itemData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("items");
+            // dealing with items
+            List<?> itemData;
+            try {
+                itemData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("items");
+            }
+            catch (NullPointerException e) {
+                itemData = new ArrayList<>();
+            }
+            catch (ClassCastException e) {
+                System.out.println(CustomError.getCustomError("Items config is not formatted correctly (check " + kitName + ")"));
+                return;
+            }
             ArrayList<ItemStack> items = establishItems(itemData);
 
-            // error checking
-            if (items.isEmpty()) {
+            // dealing with armor
+            List<?> armorData;
+            try {
+                armorData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("armor");
+            }
+            catch (NullPointerException e) {
+                armorData = new ArrayList<>();
+            }
+            catch (ClassCastException e) {
+                System.out.println(CustomError.getCustomError("Armor config is not formatted correctly (check " + kitName + ")"));
                 return;
             }
-
-            System.out.println("\nARMOR");
-            List<?> armorData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("armor");
-
-            System.out.println(armorData);
             HashMap<String, ItemStack> armor = establishArmor(armorData);
-
-            // error checking
-            if (armor.isEmpty()) {
-                return;
-            }
 
             // error checking to see if a kit has too many items and armor pieces
             if (items.size() + armor.size() > 18) {
-                System.out.println("ERROR: " + kitName + " contains more than 18 items and armor pieces");
+                System.out.println(CustomError.getCustomError(kitName + " contains more than 18 items and armor pieces"));
                 return;
             }
 
@@ -96,13 +109,12 @@ public class MainKitConfig {
 
             // error checking
             if (material == null) {
-                System.out.println("ERROR: " + materialName + " IS AN INVALID MINECRAFT ITEM");
+                System.out.println(CustomError.getInvalidMaterialError(materialName));
                 material = Material.BARRIER;
             }
 
             int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
             items.add(new ItemStack(material, quantity));
-            System.out.println(materialName + ", " + quantity);
 
         }
 
@@ -122,19 +134,20 @@ public class MainKitConfig {
 
             // error checking
             if (material == null) {
-                System.out.println("ERROR: " + materialName + " IS AN INVALID ARMOR PIECE");
+                System.out.println(CustomError.getInvalidMaterialError(materialName));
                 material = Material.BARRIER;
             }
 
             String armorType = getArmorType(materialName);
 
             if (armorType.isEmpty()) {
-                System.out.println("ERROR: " + materialName + " IS AN INVALID ARMOR PIECE");
+                System.out.println(CustomError.getCustomError(material + " is an invalid armor piece"));
             }
 
             armor.put(armorType, new ItemStack(material));
 
         }
+
         return armor;
 
     }
@@ -163,16 +176,15 @@ public class MainKitConfig {
         return materialName.substring(lastUnderscoreIndex + 1);
     }
 
+    /*
+    Getter methods
+    */
     public static int getKitGUISize() {
         return kitGUISize;
     }
 
     public static HashMap<String, Kit> getNameToKit() {
         return nameToKit;
-    }
-
-    public static HashSet<String> getKitNames() {
-        return kitNames;
     }
 
 }

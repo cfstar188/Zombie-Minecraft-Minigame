@@ -2,19 +2,31 @@ package me.cfstar188.zombiegame.configs;
 
 import me.cfstar188.zombiegame.ZombieGame;
 import me.cfstar188.zombiegame.items.HealingItem;
+import me.cfstar188.zombiegame.errors.CustomError;
 import org.bukkit.Material;
 
 import java.util.*;
 
+/*
+Saves the data about the healing from config.yml
+*/
 public class HealingConfig {
 
+    private static HealingConfig instance; // for singleton design pattern
     private static final HashMap<Material, HealingItem> materialToStats = new HashMap<>();
     private static final HashSet<UUID> playerBars = new HashSet<>(); // does the player currently have a healing bar?
-    private static ZombieGame plugin = null;
+    private static ZombieGame plugin;
 
-    public HealingConfig(ZombieGame plugin) {
-        HealingConfig.plugin = plugin;
-        establishHashmap(Objects.requireNonNull(plugin.getConfig().getList("healing")));
+    private HealingConfig(ZombieGame plugin) {
+        HealingConfig.plugin = Objects.requireNonNull(plugin, CustomError.getCustomError("Plugin cannot be null"));
+        establishHashmap(Objects.requireNonNull(plugin.getConfig().getList("healing"), CustomError.getCustomError("Healing config cannot be null")));
+    }
+
+    // there should only ever be one instance of HealingConfig
+    public static synchronized void getInstance(ZombieGame plugin) {
+        if (instance == null) {
+            instance = new HealingConfig(plugin);
+        }
     }
 
     // establish materialToStats hashmap based on config.yml
@@ -38,6 +50,9 @@ public class HealingConfig {
         return ((Number) obj).doubleValue();
     }
 
+    /*
+    Getter methods
+    */
     public static HashMap<Material, HealingItem> getMaterialToStats() {
         return materialToStats;
     }
