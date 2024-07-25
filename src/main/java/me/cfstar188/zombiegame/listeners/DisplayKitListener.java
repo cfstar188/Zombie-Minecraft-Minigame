@@ -28,7 +28,7 @@ public class DisplayKitListener implements Listener {
                     new MainKitGUI(player);
                     break;
                 case 44:
-                    new ConfirmKitGUI(player, event.getClickedInventory());
+                    new ConfirmKitGUI(player, inventoryName);
             }
         }
     }
