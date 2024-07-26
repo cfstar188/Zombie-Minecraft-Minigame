@@ -1,6 +1,7 @@
 package me.cfstar188.zombiegame.configs;
 
 import me.cfstar188.zombiegame.ZombieGame;
+import me.cfstar188.zombiegame.builders.KitBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.kits.Kit;
 import org.bukkit.Material;
@@ -86,8 +87,14 @@ public class KitConfig {
                 return;
             }
 
-            // put into hashmap
-            nameToKit.put(kitName, new Kit(kitName, slot, representativeItem, items, armor));
+            // put into hashmap // kitName, slot, representativeItem, items, armor
+            nameToKit.put(kitName, new KitBuilder()
+                    .setName(kitName)
+                    .setSlot(slot)
+                    .setRepresentativeItem(representativeItem)
+                    .setItems(items)
+                    .setArmor(armor)
+                    .build());
 
         }
 

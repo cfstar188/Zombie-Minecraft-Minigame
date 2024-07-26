@@ -11,6 +11,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+The GUI to display all the kits
+*/
 public class MainKitGUI {
 
     public MainKitGUI(Player player) {

@@ -1,6 +1,7 @@
 package me.cfstar188.zombiegame.configs;
 
 import me.cfstar188.zombiegame.ZombieGame;
+import me.cfstar188.zombiegame.builders.HealingItemBuilder;
 import me.cfstar188.zombiegame.items.HealingItem;
 import me.cfstar188.zombiegame.errors.CustomError;
 import org.bukkit.Material;
@@ -40,7 +41,10 @@ public class HealingConfig {
             double waitingTime = getDouble(((LinkedHashMap<?, ?>) healing).get("waiting-time"));
 
             // put into hashmap
-            materialToStats.put(material, new HealingItem(heartsGained * 2, waitingTime * 1000));
+            materialToStats.put(material, new HealingItemBuilder()
+                    .setHealthRestored(heartsGained * 2)
+                    .setWaitingTime(waitingTime * 1000)
+                    .build());
 
         }
     }

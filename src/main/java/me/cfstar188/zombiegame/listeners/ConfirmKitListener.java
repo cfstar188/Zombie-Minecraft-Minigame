@@ -9,6 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+/*
+Listener for the GUI that confirms whether a player will receive a certain kit
+*/
 public class ConfirmKitListener implements Listener {
 
     @EventHandler

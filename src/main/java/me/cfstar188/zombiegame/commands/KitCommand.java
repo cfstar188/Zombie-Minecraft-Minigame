@@ -2,7 +2,6 @@ package me.cfstar188.zombiegame.commands;
 
 import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.gui.MainKitGUI;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

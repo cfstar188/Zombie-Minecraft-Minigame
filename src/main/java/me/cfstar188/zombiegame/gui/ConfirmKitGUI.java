@@ -8,13 +8,23 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
 
+/*
+The confirmation GUI for a kit
+*/
 public class ConfirmKitGUI {
 
     public ConfirmKitGUI(Player player, String kitName) {
 
-        Inventory inventory = Bukkit.createInventory(null, 45, "Confirm " + kitName); // temporary
+        Inventory inventory = Bukkit.createInventory(null, 45, "Confirm " + kitName);
 
-        // set the back buttons for the inventory
+        // setting back and confirm buttons
+        setBackButtons(inventory);
+        setConfirmButtons(inventory);
+
+        player.openInventory(inventory);
+    }
+
+    private void setBackButtons(Inventory inventory) {
         ItemStack backButton = new ItemStack(ButtonGUI.getBackButton());
         ItemMeta backButtonMeta = backButton.getItemMeta();
         assert backButtonMeta != null;
@@ -23,8 +33,9 @@ public class ConfirmKitGUI {
         for (int slot = 0; slot < 18; slot++) {
             inventory.setItem(slot, backButton);
         }
+    }
 
-        // set the confirm buttons for the inventory
+    private void setConfirmButtons(Inventory inventory) {
         ItemStack confirmButton = new ItemStack(ButtonGUI.getConfirmButton());
         ItemMeta confirmButtonMeta = confirmButton.getItemMeta();
         assert confirmButtonMeta != null;
@@ -36,7 +47,6 @@ public class ConfirmKitGUI {
         for (int slot = 27; slot < 45; slot++) {
             inventory.setItem(slot, confirmButton);
         }
-
-        player.openInventory(inventory);
     }
+
 }

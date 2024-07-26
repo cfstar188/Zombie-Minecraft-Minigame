@@ -8,6 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+/*
+Listener for the GUI that displays a certain kit
+*/
 public class DisplayKitListener implements Listener {
 
     @EventHandler

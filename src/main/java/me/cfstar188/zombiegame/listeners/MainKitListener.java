@@ -11,6 +11,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.*;
 
+/*
+Listener for the GUI that shows the player all available kits
+*/
 public class MainKitListener implements Listener {
 
     @EventHandler

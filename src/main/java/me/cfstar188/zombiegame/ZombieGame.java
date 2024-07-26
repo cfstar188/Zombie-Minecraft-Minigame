@@ -18,21 +18,28 @@ public final class ZombieGame extends JavaPlugin {
     public void onEnable() {
 
         saveDefaultConfig();
+        registerEvents();
+        registerConfigs();
+        registerCommands();
 
-        // register events
+    }
+
+    private void registerEvents() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new HealingListener(), this);
         pluginManager.registerEvents(new MainKitListener(), this);
         pluginManager.registerEvents(new DisplayKitListener(), this);
         pluginManager.registerEvents(new ConfirmKitListener(), this);
+    }
 
-        // register configs
+    private void registerConfigs() {
         HealingConfig.getInstance(this);
         KitConfig.getInstance(this);
-
-        // register commands
-        Objects.requireNonNull(getCommand("kits")).setExecutor(new KitCommand());
-
     }
+
+    private void registerCommands() {
+        Objects.requireNonNull(getCommand("kits")).setExecutor(new KitCommand());
+    }
+
 
 }

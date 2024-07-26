@@ -22,9 +22,12 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.HashSet;
 
+/*
+Listener for whenever a player right-clicks a healing item
+*/
 public class HealingListener implements Listener {
 
-    private static final DecimalFormat df = new DecimalFormat("#.##"); // timer will display up to 100th of a second
+    private static final DecimalFormat df = new DecimalFormat("#.##"); // timer will display up to one 100th of a second
 
     @EventHandler
     public void onPlayerHeal(PlayerInteractEvent event) {

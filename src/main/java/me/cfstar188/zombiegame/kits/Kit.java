@@ -6,6 +6,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+Class for a single kit
+*/
 public class Kit {
 
     private final String name;
@@ -43,18 +46,25 @@ public class Kit {
     }
 
     public void giveKit(Player player) {
+        giveItems(player);
+        giveArmor(player);
+    }
 
-        // give player items
+    private void giveItems(Player player) {
         ItemStack[] itemsArray = new ItemStack[items.size()];
         itemsArray = items.toArray(itemsArray);
         player.getInventory().setContents(itemsArray);
+    }
 
-        // put armor on player
+    private void giveArmor(Player player) {
         player.getInventory().setHelmet(armor.get("helmet"));
         player.getInventory().setChestplate(armor.get("chestplate"));
         player.getInventory().setLeggings(armor.get("leggings"));
         player.getInventory().setBoots(armor.get("boots"));
-
     }
+
+//    private Inventory getInventory() {
+//        return this.inventory;
+//    }
 
 }

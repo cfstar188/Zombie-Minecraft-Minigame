@@ -10,32 +10,41 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+The GUI to display the contents of a kit
+*/
 public class DisplayKitGUI {
 
     public DisplayKitGUI(Player player, Kit kit) {
 
         Inventory inventory = Bukkit.createInventory(null, 45, kit.getName());
 
-        // set the back button for the inventory
+        // set the back and confirm buttons for the inventory
+        setBackButton(inventory);
+        setConfirmButton(inventory);
+
+        // set all items in the inventory
+        setItems(inventory, kit);
+
+        player.openInventory(inventory);
+    }
+
+    private void setBackButton(Inventory inventory) {
         ItemStack backButton = new ItemStack(ButtonGUI.getBackButton());
         ItemMeta backButtonMeta = backButton.getItemMeta();
         assert backButtonMeta != null;
         backButtonMeta.setDisplayName("§cBack to menu");
         backButton.setItemMeta(backButtonMeta);
         inventory.setItem(0, backButton);
+    }
 
-        // set the confirm button for the inventory
+    private void setConfirmButton(Inventory inventory) {
         ItemStack confirmButton = new ItemStack(ButtonGUI.getConfirmButton());
-        ItemMeta confirmButtonMeta = backButton.getItemMeta();
+        ItemMeta confirmButtonMeta = confirmButton.getItemMeta();
         assert confirmButtonMeta != null;
         confirmButtonMeta.setDisplayName("§aConfirm kit");
         confirmButton.setItemMeta(confirmButtonMeta);
         inventory.setItem(44, confirmButton);
-
-        // set all items in the inventory
-        setItems(inventory, kit);
-
-        player.openInventory(inventory);
     }
 
     private void setItems(Inventory inventory, Kit kit) {
