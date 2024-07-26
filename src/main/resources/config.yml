@@ -1,5 +1,8 @@
-# cooldown is in seconds
-# material must be a valid Minecraft item
+# PLEASE READ BEFORE MODIFYING HEALING:
+# -please follow the format given by the default config (very important)
+# -cooldown is in seconds
+# -material must be a valid Minecraft item (i.e., cooked_beef is valid but steak is not)
+# -you can add more things to the list as long as you follow the formatting
 healing:
   - material: blue_dye
     hearts-gained: 2.5
@@ -8,9 +11,10 @@ healing:
     hearts-gained: 5
     waiting-time: 2.1
 
-custom-items:
-  - bababooey
-
+# PLEASE READ BEFORE MODIFYING KITS:
+# -please follow the format given by the default config (very important)
+# -all items must be valid Minecraft items (i.e., cooked_beef is valid but steak is not)
+# -you can add more things to the lists as long as you follow the formatting
 kits:
   - name: Iron Defender
     representative-item: iron_block
