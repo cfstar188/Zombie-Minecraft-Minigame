@@ -109,19 +109,23 @@ public class KitConfig {
 
         ArrayList<ItemStack> items = new ArrayList<>();
 
-        for (Object item: itemData) {
+        if (itemData != null) {
 
-            String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name")).toUpperCase();
-            Material material = Material.getMaterial(materialName);
+            for (Object item : itemData) {
 
-            // error checking
-            if (material == null) {
-                System.out.println(CustomError.getInvalidMaterialError(materialName));
-                material = Material.BARRIER;
+                String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name")).toUpperCase();
+                Material material = Material.getMaterial(materialName);
+
+                // error checking
+                if (material == null) {
+                    System.out.println(CustomError.getInvalidMaterialError(materialName));
+                    material = Material.BARRIER;
+                }
+
+                int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
+                items.add(new ItemStack(material, quantity));
+
             }
-
-            int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
-            items.add(new ItemStack(material, quantity));
 
         }
 
@@ -134,24 +138,28 @@ public class KitConfig {
 
         HashMap<String, ItemStack> armor = new HashMap<>();
 
-        for (Object armorPiece: armorData) {
+        if (armorData != null) {
 
-            String materialName = ((String) armorPiece).toUpperCase();
-            Material material = Material.getMaterial(materialName);
+            for (Object armorPiece: armorData) {
 
-            // error checking
-            if (material == null) {
-                System.out.println(CustomError.getInvalidMaterialError(materialName));
-                material = Material.BARRIER;
+                String materialName = ((String) armorPiece).toUpperCase();
+                Material material = Material.getMaterial(materialName);
+
+                // error checking
+                if (material == null) {
+                    System.out.println(CustomError.getInvalidMaterialError(materialName));
+                    material = Material.BARRIER;
+                }
+
+                String armorType = getArmorType(materialName);
+
+                if (armorType.isEmpty()) {
+                    System.out.println(CustomError.getCustomError(material + " is an invalid armor piece"));
+                }
+
+                armor.put(armorType, new ItemStack(material));
+
             }
-
-            String armorType = getArmorType(materialName);
-
-            if (armorType.isEmpty()) {
-                System.out.println(CustomError.getCustomError(material + " is an invalid armor piece"));
-            }
-
-            armor.put(armorType, new ItemStack(material));
 
         }
 

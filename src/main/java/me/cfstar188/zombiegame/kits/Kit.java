@@ -46,8 +46,13 @@ public class Kit {
     }
 
     public void giveKit(Player player) {
-        giveItems(player);
-        giveArmor(player);
+
+        if (!items.isEmpty())
+            giveItems(player);
+
+        if (!armor.isEmpty())
+            giveArmor(player);
+
     }
 
     private void giveItems(Player player) {
