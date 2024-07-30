@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
-Class for a single kit
+Class for a kit
 */
 public class Kit {
 
