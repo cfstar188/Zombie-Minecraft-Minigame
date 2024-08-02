@@ -1,8 +1,10 @@
 package me.cfstar188.zombiegame.kits;
 
+import me.cfstar188.zombiegame.databases.KitCooldownDatabase;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,13 +18,15 @@ public class Kit {
     private final ItemStack representativeItem;
     private final ArrayList<ItemStack> items;
     private final HashMap<String, ItemStack> armor;
+    private final double cooldown;
 
-    public Kit(String name, int slot, ItemStack representativeItem, ArrayList<ItemStack> items, HashMap<String, ItemStack> armor) {
+    public Kit(String name, int slot, ItemStack representativeItem, ArrayList<ItemStack> items, HashMap<String, ItemStack> armor, double cooldown) {
         this.name = name;
         this.slot = slot;
         this.representativeItem = representativeItem;
         this.items = items;
         this.armor = armor;
+        this.cooldown = cooldown;
     }
 
     public String getName() {
@@ -45,11 +49,14 @@ public class Kit {
         return armor;
     }
 
-    public void giveKit(Player player) {
+    public double getCooldown() {
+        return this.cooldown;
+    }
+
+    public void giveKit(Player player) throws SQLException {
 
         if (!items.isEmpty())
             giveItems(player);
-
         if (!armor.isEmpty())
             giveArmor(player);
 
@@ -67,9 +74,5 @@ public class Kit {
         player.getInventory().setLeggings(armor.get("leggings"));
         player.getInventory().setBoots(armor.get("boots"));
     }
-
-//    private Inventory getInventory() {
-//        return this.inventory;
-//    }
 
 }

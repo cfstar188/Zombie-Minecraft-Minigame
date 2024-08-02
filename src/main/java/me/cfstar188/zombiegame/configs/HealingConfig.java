@@ -42,8 +42,8 @@ public class HealingConfig {
 
             // put into hashmap
             materialToStats.put(material, new HealingItemBuilder()
-                    .setHealthRestored(heartsGained * 2)
-                    .setWaitingTime(waitingTime * 1000)
+                    .setHealthRestored(heartsGained * 2) // 1 health point = half a heart
+                    .setWaitingTime(waitingTime * 1000) // setWaitingTime() should have a milliseconds input
                     .build());
 
         }

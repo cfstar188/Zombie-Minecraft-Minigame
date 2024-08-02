@@ -87,6 +87,15 @@ public class KitConfig {
                 return;
             }
 
+            // dealing with cooldown
+            double cooldown;
+            try {
+                cooldown = (double) ((LinkedHashMap<?, ?>) kit).get("cooldown");
+            }
+            catch (NullPointerException e) {
+                cooldown = 0;
+            }
+
             // put into hashmap // kitName, slot, representativeItem, items, armor
             nameToKit.put(kitName, new KitBuilder()
                     .setName(kitName)
@@ -94,6 +103,7 @@ public class KitConfig {
                     .setRepresentativeItem(representativeItem)
                     .setItems(items)
                     .setArmor(armor)
+                    .setCooldown(cooldown) // setCooldown() should have an hours input
                     .build());
 
         }

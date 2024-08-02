@@ -8,8 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
 The GUI to display all the kits
@@ -45,13 +44,16 @@ public class MainKitGUI {
 
         ItemMeta representativeItemMeta = representativeItem.getItemMeta();
         assert representativeItemMeta != null;
-        representativeItemMeta.setDisplayName(kit.getName());
+        representativeItemMeta.setDisplayName("§7§l" + kit.getName());
+        if (kit.getCooldown() > 0) changeLore(representativeItemMeta, kit);
         representativeItem.setItemMeta(representativeItemMeta);
 
     }
 
-//    private void changeLore(ItemStack representativeItem, Kit kit) {
-//
-//    }
+    private void changeLore(ItemMeta representativeItemMeta, Kit kit) {
+        String loreString = String.format("§cCooldown: §4%s hours", String.format("%.2f", kit.getCooldown()));
+        List<String> loreArray = Collections.singletonList(loreString);
+        representativeItemMeta.setLore(loreArray);
+    }
 
 }

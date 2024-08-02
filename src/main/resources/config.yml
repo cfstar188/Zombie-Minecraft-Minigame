@@ -13,6 +13,7 @@ healing:
 
 # PLEASE READ BEFORE MODIFYING KITS:
 # -please follow the format given by the default config (very important)
+# -cooldown is in hours
 # -all items must be valid Minecraft items (i.e., cooked_beef is valid but steak is not)
 # -you can add more things to the lists as long as you follow the formatting
 kits:
@@ -31,6 +32,7 @@ kits:
       - iron_chestplate
       - iron_leggings
       - iron_boots
+    cooldown: 0.01
 
   - name: Gold Archer
     representative-item: gold_block

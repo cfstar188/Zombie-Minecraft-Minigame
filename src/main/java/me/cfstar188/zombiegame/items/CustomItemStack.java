@@ -1,4 +1,7 @@
 package me.cfstar188.zombiegame.items;
 
-public class CustomItemStack {
+import org.bukkit.inventory.ItemStack;
+
+public class CustomItemStack extends ItemStack {
+    
 }

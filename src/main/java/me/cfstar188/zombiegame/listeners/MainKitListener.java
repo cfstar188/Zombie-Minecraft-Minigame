@@ -27,7 +27,7 @@ public class MainKitListener implements Listener {
             Player player = (Player) event.getWhoClicked();
 
             // what kit did the player select
-            String kitName = Objects.requireNonNull(event.getCurrentItem().getItemMeta()).getDisplayName();
+            String kitName = Objects.requireNonNull(event.getCurrentItem().getItemMeta()).getDisplayName().substring(4);
             Kit selectedKit = KitConfig.getNameToKit().get(kitName);
 
             new DisplayKitGUI(player, selectedKit);

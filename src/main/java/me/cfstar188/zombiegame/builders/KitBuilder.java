@@ -16,6 +16,7 @@ public class KitBuilder {
     private ItemStack representativeItem;
     private ArrayList<ItemStack> items = new ArrayList<>();
     private HashMap<String, ItemStack> armor = new HashMap<>();
+    private double cooldown;
 
     public KitBuilder setName(String name) {
         this.name = name;
@@ -42,7 +43,12 @@ public class KitBuilder {
         return this;
     }
 
+    public KitBuilder setCooldown(double cooldown) {
+        this.cooldown = cooldown;
+        return this;
+    }
+
     public Kit build() {
-        return new Kit(name, slot, representativeItem, items, armor);
+        return new Kit(name, slot, representativeItem, items, armor, cooldown);
     }
 }

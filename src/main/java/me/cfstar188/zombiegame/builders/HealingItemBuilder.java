@@ -15,6 +15,7 @@ public class HealingItemBuilder {
         return this;
     }
 
+    // waitingTime should be in milliseconds
     public HealingItemBuilder setWaitingTime(double waitingTime) {
         this.waitingTime = waitingTime;
         return this;
