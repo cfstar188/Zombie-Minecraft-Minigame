@@ -32,7 +32,7 @@ kits:
       - iron_chestplate
       - iron_leggings
       - iron_boots
-    cooldown: 0.01
+    cooldown: 0.05
 
   - name: Gold Archer
     representative-item: gold_block
@@ -49,6 +49,7 @@ kits:
       - golden_chestplate
       - golden_leggings
       - golden_boots
+    cooldown: 4.2
 
   - name: Leather Scout
     representative-item: leather
@@ -65,6 +66,7 @@ kits:
       - leather_chestplate
       - leather_leggings
       - leather_boots
+    cooldown: 1.5
 
   - name: Emerald Mage
     representative-item: emerald
@@ -78,6 +80,7 @@ kits:
         quantity: 16
     armor:
       - diamond_chestplate
+    cooldown: 3.0
 
   - name: Nether Warrior
     representative-item: nether_brick
@@ -94,6 +97,7 @@ kits:
       - netherite_chestplate
       - netherite_leggings
       - netherite_boots
+    cooldown: 5.0
 
   - name: Ender Slayer
     representative-item: end_stone
@@ -110,6 +114,7 @@ kits:
       - diamond_chestplate
       - diamond_leggings
       - diamond_boots
+    cooldown: 4.0
 
   - name: Snow Warrior
     representative-item: snow_block
@@ -126,6 +131,7 @@ kits:
       - iron_chestplate
       - iron_leggings
       - iron_boots
+    cooldown: 2.5
 
   - name: Jungle Explorer
     representative-item: melon
@@ -142,6 +148,7 @@ kits:
       - leather_chestplate
       - leather_leggings
       - leather_boots
+    cooldown: 1.8
 
   - name: Desert Nomad
     representative-item: sand
@@ -158,6 +165,7 @@ kits:
       - chainmail_chestplate
       - chainmail_leggings
       - chainmail_boots
+    cooldown: 3.5
 
   - name: Oceanic Guardian
     representative-item: prismarine
@@ -172,6 +180,7 @@ kits:
       - diamond_chestplate
       - diamond_leggings
       - diamond_boots
+    cooldown: 4.5
 
   - name: Forest Ranger
     representative-item: oak_log
@@ -188,6 +197,7 @@ kits:
       - leather_chestplate
       - leather_leggings
       - leather_boots
+    cooldown: 2.0
 
   - name: Cavern Crawler
     representative-item: coal
@@ -204,6 +214,7 @@ kits:
       - iron_chestplate
       - iron_leggings
       - iron_boots
+    cooldown: 2.2
 
   - name: Volcano Fighter
     representative-item: magma_block
@@ -220,6 +231,7 @@ kits:
       - diamond_chestplate
       - diamond_leggings
       - diamond_boots
+    cooldown: 5.5
 
   - name: Sky Knight
     representative-item: blue_ice
@@ -236,6 +248,7 @@ kits:
       - diamond_chestplate
       - diamond_leggings
       - diamond_boots
+    cooldown: 6.0
 
   - name: Shadow Assassin
     representative-item: obsidian
@@ -250,6 +263,7 @@ kits:
       - netherite_chestplate
       - netherite_leggings
       - netherite_boots
+    cooldown: 4.8
 
   - name: Lunar Guardian
     representative-item: glowstone
@@ -266,6 +280,7 @@ kits:
       - diamond_chestplate
       - diamond_leggings
       - diamond_boots
+    cooldown: 3.5
 
   - name: Pirate Captain
     representative-item: emerald
@@ -282,6 +297,7 @@ kits:
       - golden_chestplate
       - golden_leggings
       - golden_boots
+    cooldown: 3.8
 
   - name: Alchemist
     representative-item: brewing_stand
@@ -298,6 +314,7 @@ kits:
       - leather_chestplate
       - leather_leggings
       - leather_boots
+    cooldown: 2.7
 
   - name: Forest Sentinel
     representative-item: oak_log

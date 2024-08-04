@@ -2,6 +2,8 @@ package me.cfstar188.zombiegame.gui;
 
 import me.cfstar188.zombiegame.configs.KitConfig;
 import me.cfstar188.zombiegame.kits.Kit;
+import me.cfstar188.zombiegame.misc.FormatTime;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -51,8 +53,8 @@ public class MainKitGUI {
     }
 
     private void changeLore(ItemMeta representativeItemMeta, Kit kit) {
-        String loreString = String.format("§cCooldown: §4%s hours", String.format("%.2f", kit.getCooldown()));
-        List<String> loreArray = Collections.singletonList(loreString);
+        String loreString = FormatTime.formatHours(kit.getCooldown());
+        List<String> loreArray = Collections.singletonList("§cCooldown: §4" + loreString);
         representativeItemMeta.setLore(loreArray);
     }
 

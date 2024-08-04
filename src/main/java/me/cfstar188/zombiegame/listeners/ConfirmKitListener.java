@@ -1,10 +1,10 @@
 package me.cfstar188.zombiegame.listeners;
 
-import me.cfstar188.zombiegame.builders.KitBuilder;
 import me.cfstar188.zombiegame.configs.KitConfig;
 import me.cfstar188.zombiegame.databases.KitCooldownDatabase;
 import me.cfstar188.zombiegame.gui.DisplayKitGUI;
 import me.cfstar188.zombiegame.kits.Kit;
+import me.cfstar188.zombiegame.misc.FormatTime;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,7 +53,9 @@ public class ConfirmKitListener implements Listener {
                         playerMessage = String.format("§aYou selected %s!", kitName);
                     }
                     else {
-                        playerMessage = String.format("§cYou need to wait %f hours before selecting %s!", cooldown, kitName);
+                        double timeRemaining = cooldown - hoursPassed;
+                        String formatTimeRemaining = FormatTime.formatHours(timeRemaining);
+                        playerMessage = String.format("§cYou must wait %s before selecting %s!", formatTimeRemaining, kitName);
                     }
 
                     player.closeInventory();
