@@ -14,9 +14,9 @@ public class FormatTime {
             return "1 minute";
 
         // convert minutes to hours if it reaches or exceeds 60
-        if (minutes >= 60) {
-            hours += minutes / 60;
-            minutes %= 60;
+        if (minutes == 60) {
+            hours += 1;
+            minutes = 0;
         }
 
         // construct hour and minute parts
