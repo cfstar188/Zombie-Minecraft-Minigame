@@ -22,6 +22,7 @@ public final class ZombieGame extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WeaponMechanics")).saveDefaultConfig();
         saveDefaultConfig();
         registerEvents();
         registerConfigs();
@@ -32,11 +33,12 @@ public final class ZombieGame extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        try {
-            kitCooldownDatabase.closeConnection();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
+        if (kitCooldownDatabase != null) {
+            try {
+                kitCooldownDatabase.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -81,8 +81,22 @@ public class KitConfig {
             }
             HashMap<String, ItemStack> armor = establishArmor(armorData);
 
+            // dealing with weapons
+            List<?> weaponData;
+            try {
+                weaponData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("weapons");
+            }
+            catch (NullPointerException e) {
+                weaponData = new ArrayList<>();
+            }
+            catch (ClassCastException e) {
+                System.out.println(CustomError.getCustomError("Weapon config is not formatted correctly (check " + kitName + ")"));
+                return;
+            }
+            HashMap<String, Integer> weaponNameToQuantity = establishWeapons(weaponData);
+
             // error checking to see if a kit has too many items and armor pieces
-            if (items.size() + armor.size() > 18) {
+            if (items.size() + armor.size() + weaponNameToQuantity.size() > 18) {
                 System.out.println(CustomError.getCustomError(kitName + " contains more than 18 items and armor pieces"));
                 return;
             }
@@ -103,6 +117,7 @@ public class KitConfig {
                     .setRepresentativeItem(representativeItem)
                     .setItems(items)
                     .setArmor(armor)
+                    .setWeaponNameToQuantity(weaponNameToQuantity)
                     .setCooldown(cooldown) // setCooldown() should have an hours input
                     .build());
 
@@ -126,14 +141,18 @@ public class KitConfig {
                 String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name")).toUpperCase();
                 Material material = Material.getMaterial(materialName);
 
+                int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
+                ItemStack itemStack;
+
                 // error checking
                 if (material == null) {
-                    System.out.println(CustomError.getInvalidMaterialError(materialName));
-                    material = Material.BARRIER;
+                    itemStack = new ItemStack(Material.BARRIER, quantity);
+                }
+                else {
+                    itemStack = new ItemStack(material, quantity);
                 }
 
-                int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
-                items.add(new ItemStack(material, quantity));
+                items.add(itemStack);
 
             }
 
@@ -175,6 +194,20 @@ public class KitConfig {
 
         return armor;
 
+    }
+
+    // return the array of weapon names
+    private HashMap<String, Integer> establishWeapons(List<?> weaponData) {
+
+        HashMap<String, Integer> weaponNameToQuantity = new HashMap<>();
+        if (weaponData != null) {
+            for (Object weapon : weaponData) {
+                String weaponName = ((String) ((LinkedHashMap<?, ?>) weapon).get("name"));
+                int quantity = (int) ((LinkedHashMap<?, ?>) weapon).get("quantity");
+                weaponNameToQuantity.put(weaponName, quantity);
+            }
+        }
+        return weaponNameToQuantity;
     }
 
     // returns either helmet, chestplate, leggings, or boots

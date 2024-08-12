@@ -27,6 +27,9 @@ kits:
         quantity: 1
       - name: bread
         quantity: 32
+    weapons:
+      - name: AK_47
+        quantity: 1
     armor:
       - iron_helmet
       - iron_chestplate
@@ -44,6 +47,9 @@ kits:
         quantity: 1
       - name: arrow
         quantity: 64
+    weapons:
+      - name: FN_FAL
+        quantity: 1
     armor:
       - golden_helmet
       - golden_chestplate
@@ -61,6 +67,9 @@ kits:
         quantity: 1
       - name: cooked_porkchop
         quantity: 16
+    weapons:
+      - name: Combat_Knife
+        quantity: 1
     armor:
       - leather_helmet
       - leather_chestplate
@@ -78,6 +87,9 @@ kits:
         quantity: 3
       - name: bread
         quantity: 16
+    weapons:
+      - name: FR_5.56
+        quantity: 1
     armor:
       - diamond_chestplate
     cooldown: 3.0
@@ -92,6 +104,9 @@ kits:
         quantity: 1
       - name: cooked_beef
         quantity: 32
+    weapons:
+      - name: STG44
+        quantity: 1
     armor:
       - netherite_helmet
       - netherite_chestplate
@@ -109,6 +124,9 @@ kits:
         quantity: 5
       - name: cooked_beef
         quantity: 16
+    weapons:
+      - name: M4A1
+        quantity: 1
     armor:
       - diamond_helmet
       - diamond_chestplate
@@ -126,6 +144,9 @@ kits:
         quantity: 32
       - name: carrot
         quantity: 16
+    weapons:
+      - name: AK_47
+        quantity: 1
     armor:
       - iron_helmet
       - iron_chestplate
@@ -143,6 +164,9 @@ kits:
         quantity: 1
       - name: apple
         quantity: 16
+    weapons:
+      - name: Grenade
+        quantity: 1
     armor:
       - leather_helmet
       - leather_chestplate
@@ -160,6 +184,9 @@ kits:
         quantity: 1
       - name: dried_kelp
         quantity: 32
+    weapons:
+      - name: STG44
+        quantity: 1
     armor:
       - chainmail_helmet
       - chainmail_chestplate
@@ -175,6 +202,9 @@ kits:
         quantity: 1
       - name: cooked_beef
         quantity: 16
+    weapons:
+      - name: M4A1
+        quantity: 1
     armor:
       - diamond_helmet
       - diamond_chestplate
@@ -192,6 +222,9 @@ kits:
         quantity: 1
       - name: cookie
         quantity: 16
+    weapons:
+      - name: FN_FAL
+        quantity: 1
     armor:
       - leather_helmet
       - leather_chestplate
@@ -209,6 +242,9 @@ kits:
         quantity: 64
       - name: bread
         quantity: 16
+    weapons:
+      - name: FR_5.56
+        quantity: 1
     armor:
       - iron_helmet
       - iron_chestplate
@@ -226,6 +262,9 @@ kits:
         quantity: 10
       - name: cooked_beef
         quantity: 16
+    weapons:
+      - name: AK_47
+        quantity: 1
     armor:
       - diamond_helmet
       - diamond_chestplate
@@ -243,6 +282,9 @@ kits:
         quantity: 1
       - name: golden_carrot
         quantity: 16
+    weapons:
+      - name: FN_FAL
+        quantity: 1
     armor:
       - diamond_helmet
       - diamond_chestplate
@@ -258,6 +300,9 @@ kits:
         quantity: 1
       - name: cooked_beef
         quantity: 16
+    weapons:
+      - name: STG44
+        quantity: 1
     armor:
       - netherite_helmet
       - netherite_chestplate

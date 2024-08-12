@@ -2,11 +2,10 @@ name: ZombieGame
 version: '${project.version}'
 main: me.cfstar188.zombiegame.ZombieGame
 api-version: '1.20'
+softdepend: [WeaponMechanics, MechanicsCore, ProtocolLib]
 commands:
   kits:
     description: Open the kit menu
     usage: /kits
     aliases:
       - kit
-      - k
-
