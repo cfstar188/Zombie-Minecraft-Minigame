@@ -1,3 +1,12 @@
+# PLEASE READ BEFORE MODIFYING currency:
+# -mob must be a valid Minecraft mob
+# -currency-received must be a number
+currency:
+  - mob: zombie
+    currency-received: 10
+  - mob: creeper
+    currency-received: 5
+
 # PLEASE READ BEFORE MODIFYING HEALING:
 # -please follow the format given by the default config (very important)
 # -cooldown is in seconds

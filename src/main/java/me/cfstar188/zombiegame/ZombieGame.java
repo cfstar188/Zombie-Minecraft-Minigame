@@ -3,11 +3,10 @@ package me.cfstar188.zombiegame;
 import me.cfstar188.zombiegame.commands.KitCommand;
 import me.cfstar188.zombiegame.configs.HealingConfig;
 import me.cfstar188.zombiegame.configs.KitConfig;
+import me.cfstar188.zombiegame.configs.CurrencyConfig;
+import me.cfstar188.zombiegame.databases.CurrencyDatabase;
 import me.cfstar188.zombiegame.databases.KitCooldownDatabase;
-import me.cfstar188.zombiegame.listeners.ConfirmKitListener;
-import me.cfstar188.zombiegame.listeners.DisplayKitListener;
-import me.cfstar188.zombiegame.listeners.HealingListener;
-import me.cfstar188.zombiegame.listeners.MainKitListener;
+import me.cfstar188.zombiegame.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +17,7 @@ import java.util.Objects;
 public final class ZombieGame extends JavaPlugin {
 
     private KitCooldownDatabase kitCooldownDatabase;
+    private CurrencyDatabase currencyDatabase;
 
     @Override
     public void onEnable() {
@@ -27,7 +27,7 @@ public final class ZombieGame extends JavaPlugin {
         registerEvents();
         registerConfigs();
         registerCommands();
-        registerKitCooldownDatabase();
+        registerDatabases();
 
     }
 
@@ -40,6 +40,14 @@ public final class ZombieGame extends JavaPlugin {
                 e.printStackTrace();
             }
         }
+
+        if (currencyDatabase != null) {
+            try {
+                currencyDatabase.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void registerEvents() {
@@ -48,24 +56,28 @@ public final class ZombieGame extends JavaPlugin {
         pluginManager.registerEvents(new MainKitListener(), this);
         pluginManager.registerEvents(new DisplayKitListener(), this);
         pluginManager.registerEvents(new ConfirmKitListener(), this);
+        pluginManager.registerEvents(new MobKillListener(), this);
     }
 
     private void registerConfigs() {
         HealingConfig.getInstance(this);
         KitConfig.getInstance(this);
+        CurrencyConfig.getInstance(this);
     }
 
     private void registerCommands() {
         Objects.requireNonNull(getCommand("kits")).setExecutor(new KitCommand());
     }
 
-    private void registerKitCooldownDatabase() {
+    private void registerDatabases() {
         try {
             // create the ZombieGame folder if not exists
             if (!getDataFolder().exists())
                 getDataFolder().mkdirs();
 
-            kitCooldownDatabase = new KitCooldownDatabase(getDataFolder().getAbsolutePath() + "/ZombieGame.db");
+            String overallDatabaseString = getDataFolder().getAbsolutePath() + "/ZombieGame.db";
+            kitCooldownDatabase = new KitCooldownDatabase(overallDatabaseString);
+            currencyDatabase = new CurrencyDatabase(overallDatabaseString);
         }
         catch (SQLException e) {
             e.printStackTrace();
