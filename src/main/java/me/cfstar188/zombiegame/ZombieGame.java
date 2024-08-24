@@ -3,7 +3,7 @@ package me.cfstar188.zombiegame;
 import me.cfstar188.zombiegame.commands.KitCommand;
 import me.cfstar188.zombiegame.configs.HealingConfig;
 import me.cfstar188.zombiegame.configs.KitConfig;
-import me.cfstar188.zombiegame.configs.CurrencyConfig;
+import me.cfstar188.zombiegame.configs.ScoreboardConfig;
 import me.cfstar188.zombiegame.databases.CurrencyDatabase;
 import me.cfstar188.zombiegame.databases.KitCooldownDatabase;
 import me.cfstar188.zombiegame.listeners.*;
@@ -57,12 +57,13 @@ public final class ZombieGame extends JavaPlugin {
         pluginManager.registerEvents(new DisplayKitListener(), this);
         pluginManager.registerEvents(new ConfirmKitListener(), this);
         pluginManager.registerEvents(new MobKillListener(), this);
+        pluginManager.registerEvents(new PlayerJoinListener(), this);
     }
 
     private void registerConfigs() {
         HealingConfig.getInstance(this);
         KitConfig.getInstance(this);
-        CurrencyConfig.getInstance(this);
+        ScoreboardConfig.getInstance(this);
     }
 
     private void registerCommands() {

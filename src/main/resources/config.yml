@@ -1,7 +1,14 @@
-# PLEASE READ BEFORE MODIFYING currency:
+# PLEASE READ BEFORE MODIFYING scoreboard:
+scoreboard:
+  scoreboard-title: '§6§lVINTAGE NETWORK'
+  display-player-currency: true
+  currency-name: Money
+  currency-prefix: $
+
+# PLEASE READ BEFORE MODIFYING currency-mobs:
 # -mob must be a valid Minecraft mob
 # -currency-received must be a number
-currency:
+currency-mobs:
   - mob: zombie
     currency-received: 10
   - mob: creeper

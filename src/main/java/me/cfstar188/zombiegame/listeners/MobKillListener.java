@@ -1,7 +1,8 @@
 package me.cfstar188.zombiegame.listeners;
 
-import me.cfstar188.zombiegame.configs.CurrencyConfig;
+import me.cfstar188.zombiegame.configs.ScoreboardConfig;
 import me.cfstar188.zombiegame.databases.CurrencyDatabase;
+import me.cfstar188.zombiegame.gui.ScoreboardGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -17,14 +18,19 @@ public class MobKillListener implements Listener {
     @EventHandler
     public void onMobKill(EntityDeathEvent event) throws SQLException {
 
-        HashMap<EntityType, Integer> entityTypeToCurrencyReceived = CurrencyConfig.getEntityTypeToCurrencyReceived();
+        HashMap<EntityType, Integer> entityTypeToCurrencyReceived = ScoreboardConfig.getEntityTypeToCurrencyReceived();
         EntityType entityType = event.getEntityType();
         Player player = event.getEntity().getKiller();
         
         if (entityTypeToCurrencyReceived.containsKey(entityType) && player != null) {
             String uuid = player.getUniqueId().toString();
-            int currency = entityTypeToCurrencyReceived.get(entityType);
-            CurrencyDatabase.giveCurrency(uuid, currency);
+
+            // updating currency database
+            int currencyToGive = entityTypeToCurrencyReceived.get(entityType);
+            CurrencyDatabase.giveCurrency(uuid, currencyToGive);
+
+            // updating currency scoreboard
+            ScoreboardGUI.displayScoreboard(player);
         }
 
     }
