@@ -1,6 +1,7 @@
 package me.cfstar188.zombiegame.databases;
 
 import me.cfstar188.zombiegame.gui.ScoreboardGUI;
+import org.bukkit.entity.Player;
 
 import java.sql.*;
 
@@ -24,7 +25,9 @@ public class CurrencyDatabase {
         }
     }
 
-    public static void giveCurrency(String uuid, int currency) throws SQLException {
+    public static void giveCurrency(Player player, int currency) throws SQLException {
+
+        String uuid = player.getUniqueId().toString();
 
         // check if the uuid exists in the currency database
         try (PreparedStatement checkStatement = connection.prepareStatement(
@@ -52,10 +55,14 @@ public class CurrencyDatabase {
                 }
             }
         }
+
+        // display scoreboard to player with updated currency
+        ScoreboardGUI.displayScoreboard(player);
     }
 
-    public static int getCurrency(String uuid) throws SQLException {
+    public static int getCurrency(Player player) throws SQLException {
 
+        String uuid = player.getUniqueId().toString();
         // check if the uuid exists in the currency database
         try (PreparedStatement checkStatement = connection.prepareStatement(
                 "SELECT currency_value FROM currency WHERE uuid = ?;")) {

@@ -9,3 +9,15 @@ commands:
     usage: /kits
     aliases:
       - kit
+  givecurrency:
+    description: Gives the player the specified amount of currency
+    usage: /givecurrency <player> <amount>
+    aliases:
+      - givemoney
+  removecurrency:
+    description: Takes he specified amount of currency from the player
+    usage: /removecurrency <player> <amount>
+    aliases:
+      - takecurrency
+      - takemoney
+      - removemoney

@@ -1,4 +1,19 @@
+# PLEASE READ BEFORE MODIFYING ANYTHING
+# -make sure to follow the format of the default config.yml (i.e., don't add custom field names)
+
 # PLEASE READ BEFORE MODIFYING scoreboard:
+# -damage is in hearts
+# -material must be a valid Minecraft item (i.e., cooked_beef is valid but steak is not)
+custom-items:
+  - name: Screwdriver
+    lore: A spiky one
+    damage: 2
+    material: daisy
+
+custom-armor:
+
+# PLEASE READ BEFORE MODIFYING scoreboard:
+# -display-player-currency must be either true or false
 scoreboard:
   scoreboard-title: '§6§lVINTAGE NETWORK'
   display-player-currency: true
@@ -15,10 +30,8 @@ currency-mobs:
     currency-received: 5
 
 # PLEASE READ BEFORE MODIFYING HEALING:
-# -please follow the format given by the default config (very important)
-# -cooldown is in seconds
 # -material must be a valid Minecraft item (i.e., cooked_beef is valid but steak is not)
-# -you can add more things to the list as long as you follow the formatting
+# -waiting-time is in seconds and must be an integer or decimal number
 healing:
   - material: blue_dye
     hearts-gained: 2.5
@@ -28,9 +41,9 @@ healing:
     waiting-time: 2.1
 
 # PLEASE READ BEFORE MODIFYING KITS:
-# -please follow the format given by the default config (very important)
 # -cooldown is in hours
-# -all items must be valid Minecraft items (i.e., cooked_beef is valid but steak is not)
+# -all items must be either: a valid Minecraft item, a gun in the WeaponMechanics folder, a custom item, or a custom
+# armor piece.
 # -you can add more things to the lists as long as you follow the formatting
 kits:
   - name: Iron Defender

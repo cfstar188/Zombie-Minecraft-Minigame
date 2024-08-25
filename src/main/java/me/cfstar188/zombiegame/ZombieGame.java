@@ -1,6 +1,8 @@
 package me.cfstar188.zombiegame;
 
+import me.cfstar188.zombiegame.commands.GiveCurrencyCommand;
 import me.cfstar188.zombiegame.commands.KitCommand;
+import me.cfstar188.zombiegame.commands.RemoveCurrencyCommand;
 import me.cfstar188.zombiegame.configs.HealingConfig;
 import me.cfstar188.zombiegame.configs.KitConfig;
 import me.cfstar188.zombiegame.configs.ScoreboardConfig;
@@ -68,6 +70,8 @@ public final class ZombieGame extends JavaPlugin {
 
     private void registerCommands() {
         Objects.requireNonNull(getCommand("kits")).setExecutor(new KitCommand());
+        Objects.requireNonNull(getCommand("givecurrency")).setExecutor(new GiveCurrencyCommand());
+        Objects.requireNonNull(getCommand("removecurrency")).setExecutor(new RemoveCurrencyCommand());
     }
 
     private void registerDatabases() {

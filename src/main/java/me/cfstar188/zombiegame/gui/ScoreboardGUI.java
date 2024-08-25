@@ -22,9 +22,8 @@ public class ScoreboardGUI {
 
         String currencyName = ScoreboardConfig.getCurrencyName();
         String currencyPrefix = ScoreboardConfig.getCurrencyPrefix();
-        String playerUUID = player.getUniqueId().toString();
 
-        Score score = objective.getScore(currencyName + ": " + ChatColor.GREEN + currencyPrefix + CurrencyDatabase.getCurrency(playerUUID));
+        Score score = objective.getScore(currencyName + ": " + ChatColor.GREEN + currencyPrefix + CurrencyDatabase.getCurrency(player));
         score.setScore(1);
 
         player.setScoreboard(scoreboard);

@@ -23,14 +23,11 @@ public class MobKillListener implements Listener {
         Player player = event.getEntity().getKiller();
         
         if (entityTypeToCurrencyReceived.containsKey(entityType) && player != null) {
-            String uuid = player.getUniqueId().toString();
 
             // updating currency database
             int currencyToGive = entityTypeToCurrencyReceived.get(entityType);
-            CurrencyDatabase.giveCurrency(uuid, currencyToGive);
+            CurrencyDatabase.giveCurrency(player, currencyToGive);
 
-            // updating currency scoreboard
-            ScoreboardGUI.displayScoreboard(player);
         }
 
     }
