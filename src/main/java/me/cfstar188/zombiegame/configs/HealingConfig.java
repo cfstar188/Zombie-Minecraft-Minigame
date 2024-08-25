@@ -4,6 +4,7 @@ import me.cfstar188.zombiegame.ZombieGame;
 import me.cfstar188.zombiegame.builders.HealingItemBuilder;
 import me.cfstar188.zombiegame.items.HealingItem;
 import me.cfstar188.zombiegame.errors.CustomError;
+import me.cfstar188.zombiegame.misc.FormatNum;
 import org.bukkit.Material;
 
 import java.util.*;
@@ -37,8 +38,8 @@ public class HealingConfig {
             // extract data from healing
             String materialName = (String) ((LinkedHashMap<?, ?>) healing).get("material");
             Material material = Material.valueOf(materialName.toUpperCase());
-            double heartsGained = getDouble(((LinkedHashMap<?, ?>) healing).get("hearts-gained"));
-            double waitingTime = getDouble(((LinkedHashMap<?, ?>) healing).get("waiting-time"));
+            double heartsGained = FormatNum.getDouble(((LinkedHashMap<?, ?>) healing).get("hearts-gained"));
+            double waitingTime = FormatNum.getDouble(((LinkedHashMap<?, ?>) healing).get("waiting-time"));
 
             // put into hashmap
             materialToStats.put(material, new HealingItemBuilder()
@@ -47,11 +48,6 @@ public class HealingConfig {
                     .build());
 
         }
-    }
-
-    // helper method for establishHashmap
-    private static double getDouble(Object obj) {
-        return ((Number) obj).doubleValue();
     }
 
     /*
