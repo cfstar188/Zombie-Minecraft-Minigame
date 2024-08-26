@@ -1,13 +1,14 @@
 package me.cfstar188.zombiegame.builders;
 
 import me.cfstar188.zombiegame.items.CustomItem;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class CustomItemBuilder {
 
     private String lore;
     private double damage;
-    private ItemStack material;
+    private Material material;
 
     public CustomItemBuilder setLore(String lore) {
         this.lore = lore;
@@ -21,7 +22,7 @@ public class CustomItemBuilder {
     }
 
     // waitingTime should be in milliseconds
-    public CustomItemBuilder setMaterial(ItemStack material) {
+    public CustomItemBuilder setMaterial(Material material) {
         this.material = material;
         return this;
     }

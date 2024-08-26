@@ -2,10 +2,8 @@ package me.cfstar188.zombiegame.configs;
 
 import me.cfstar188.zombiegame.ZombieGame;
 import me.cfstar188.zombiegame.builders.CustomItemBuilder;
-import me.cfstar188.zombiegame.builders.HealingItemBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.items.CustomItem;
-import me.cfstar188.zombiegame.items.HealingItem;
 import me.cfstar188.zombiegame.misc.FormatNum;
 import org.bukkit.Material;
 
@@ -40,16 +38,28 @@ public class CustomItemConfig {
         for (Object customItem : customItems) {
 
             // extract data from healing
-            String name = (String) ((LinkedHashMap<?, ?>) customItem).get("name");
+            String name = ((String) ((LinkedHashMap<?, ?>) customItem).get("name")).toUpperCase();
             String lore = (String) ((LinkedHashMap<?, ?>) customItem).get("lore");
             double damage = FormatNum.getDouble(((LinkedHashMap<?, ?>) customItem).get("damage"));
+            String materialString = ((String) ((LinkedHashMap<?, ?>) customItem).get("material")).toUpperCase();
+            Material material = Material.valueOf(materialString);
 
             // put into hashmap
             nameToCustomItem.put(name, new CustomItemBuilder()
                     .setLore(lore)
-                    .setDamage(damage)
+                    .setDamage(damage * 2)
+                    .setMaterial(material)
                     .build());
 
         }
     }
+
+    public static boolean contains(String customItem) {
+        return nameToCustomItem.containsKey(customItem);
+    }
+
+    public static CustomItem getCustomItem(String customItem) {
+        return nameToCustomItem.get(customItem);
+    }
+
 }

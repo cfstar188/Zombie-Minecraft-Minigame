@@ -7,8 +7,8 @@
 custom-items:
   - name: Screwdriver
     lore: A spiky one
-    damage: 2
-    material: daisy
+    damage: 10
+    material: oxeye_daisy
 
 custom-armor:
 
@@ -56,6 +56,8 @@ kits:
         quantity: 1
       - name: bread
         quantity: 32
+      - name: Screwdriver
+        quantity: 2
     weapons:
       - name: AK_47
         quantity: 1

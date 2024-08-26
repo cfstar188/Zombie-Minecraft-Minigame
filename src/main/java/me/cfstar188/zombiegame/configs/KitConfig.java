@@ -3,9 +3,12 @@ package me.cfstar188.zombiegame.configs;
 import me.cfstar188.zombiegame.ZombieGame;
 import me.cfstar188.zombiegame.builders.KitBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
+import me.cfstar188.zombiegame.items.CustomItem;
 import me.cfstar188.zombiegame.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
@@ -139,18 +142,22 @@ public class KitConfig {
             for (Object item : itemData) {
 
                 String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name")).toUpperCase();
-                Material material = Material.getMaterial(materialName);
-
+                Material material;
                 int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
                 ItemStack itemStack;
-
-                // error checking
-                if (material == null) {
-                    itemStack = new ItemStack(Material.BARRIER, quantity);
+                if (CustomItemConfig.contains(materialName)) {
+                    itemStack = createCustomItemStack(materialName, quantity);
                 }
                 else {
-                    itemStack = new ItemStack(material, quantity);
+                    material = Material.getMaterial(materialName);
+                    if (material == null) {
+                        itemStack = new ItemStack(Material.BARRIER, quantity);
+                    }
+                    else {
+                        itemStack = new ItemStack(material, quantity);
+                    }
                 }
+
 
                 items.add(itemStack);
 
@@ -160,6 +167,23 @@ public class KitConfig {
 
         return items;
 
+    }
+
+    private ItemStack createCustomItemStack(String materialName, int quantity) {
+        CustomItem customItem = CustomItemConfig.getCustomItem(materialName);
+        ItemStack itemStack = new ItemStack(customItem.getMaterial(), quantity);
+        Damageable meta = (Damageable) itemStack.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(materialName);
+        meta.setLore(customItem.getLore());
+        meta.setDamage(meta.getDamage() + (int) (customItem.getDamage()));
+        itemStack.setItemMeta(meta);
+
+        System.out.println("MATERIAL NAME: " + materialName);
+        System.out.println("LORE: " + customItem.getLore());
+        System.out.println("DAMAGE: " + customItem.getDamage());
+
+        return itemStack;
     }
 
     // return the array of ItemStacks of armor
