@@ -11,6 +11,9 @@ custom-items:
     material: oxeye_daisy
 
 custom-armor:
+  - name:
+
+custom-armor:
 
 # PLEASE READ BEFORE MODIFYING scoreboard:
 # -display-player-currency must be either true or false

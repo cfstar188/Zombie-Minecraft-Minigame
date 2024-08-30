@@ -141,15 +141,15 @@ public class KitConfig {
 
             for (Object item : itemData) {
 
-                String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name")).toUpperCase();
+                String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name"));
                 Material material;
                 int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
                 ItemStack itemStack;
                 if (CustomItemConfig.contains(materialName)) {
-                    itemStack = createCustomItemStack(materialName, quantity);
+                    itemStack = CustomItemConfig.createCustomItemStack(materialName, quantity);
                 }
                 else {
-                    material = Material.getMaterial(materialName);
+                    material = Material.getMaterial(materialName.toUpperCase());
                     if (material == null) {
                         itemStack = new ItemStack(Material.BARRIER, quantity);
                     }
@@ -157,7 +157,6 @@ public class KitConfig {
                         itemStack = new ItemStack(material, quantity);
                     }
                 }
-
 
                 items.add(itemStack);
 
@@ -167,23 +166,6 @@ public class KitConfig {
 
         return items;
 
-    }
-
-    private ItemStack createCustomItemStack(String materialName, int quantity) {
-        CustomItem customItem = CustomItemConfig.getCustomItem(materialName);
-        ItemStack itemStack = new ItemStack(customItem.getMaterial(), quantity);
-        Damageable meta = (Damageable) itemStack.getItemMeta();
-        assert meta != null;
-        meta.setDisplayName(materialName);
-        meta.setLore(customItem.getLore());
-        meta.setDamage(meta.getDamage() + (int) (customItem.getDamage()));
-        itemStack.setItemMeta(meta);
-
-        System.out.println("MATERIAL NAME: " + materialName);
-        System.out.println("LORE: " + customItem.getLore());
-        System.out.println("DAMAGE: " + customItem.getDamage());
-
-        return itemStack;
     }
 
     // return the array of ItemStacks of armor

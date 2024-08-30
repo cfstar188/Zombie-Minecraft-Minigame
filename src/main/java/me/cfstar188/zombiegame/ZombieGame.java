@@ -61,6 +61,7 @@ public final class ZombieGame extends JavaPlugin {
         pluginManager.registerEvents(new ConfirmKitListener(), this);
         pluginManager.registerEvents(new MobKillListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new EntityDamageListener(), this);
     }
 
     private void registerConfigs() {

@@ -3,6 +3,7 @@ package me.cfstar188.zombiegame.items;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class CustomItem extends ItemStack {
         this.material = material;
     }
 
-    public List<String> getLore() {
-        return Arrays.asList(lore.split("\n"));
+    public ArrayList<String> getLore() {
+        return new ArrayList<>(Arrays.asList(lore.split("\n")));
     }
 
     public double getDamage() {

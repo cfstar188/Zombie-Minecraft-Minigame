@@ -5,7 +5,11 @@ import me.cfstar188.zombiegame.builders.CustomItemBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.items.CustomItem;
 import me.cfstar188.zombiegame.misc.FormatNum;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -38,7 +42,7 @@ public class CustomItemConfig {
         for (Object customItem : customItems) {
 
             // extract data from healing
-            String name = ((String) ((LinkedHashMap<?, ?>) customItem).get("name")).toUpperCase();
+            String name = ((String) ((LinkedHashMap<?, ?>) customItem).get("name"));
             String lore = (String) ((LinkedHashMap<?, ?>) customItem).get("lore");
             double damage = FormatNum.getDouble(((LinkedHashMap<?, ?>) customItem).get("damage"));
             String materialString = ((String) ((LinkedHashMap<?, ?>) customItem).get("material")).toUpperCase();
@@ -60,6 +64,19 @@ public class CustomItemConfig {
 
     public static CustomItem getCustomItem(String customItem) {
         return nameToCustomItem.get(customItem);
+    }
+
+    public static ItemStack createCustomItemStack(String materialName, int quantity) {
+        CustomItem customItem = CustomItemConfig.getCustomItem(materialName);
+        ItemStack itemStack = new ItemStack(customItem.getMaterial(), quantity);
+        ItemMeta meta = itemStack.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(materialName);
+        List<String> lore = customItem.getLore();
+        lore.add(ChatColor.RED + "Damage: " + customItem.getDamage() / 2);
+        meta.setLore(lore);
+        itemStack.setItemMeta(meta);
+        return itemStack;
     }
 
 }
