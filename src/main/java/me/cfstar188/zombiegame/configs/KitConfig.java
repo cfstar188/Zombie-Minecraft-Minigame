@@ -3,6 +3,7 @@ package me.cfstar188.zombiegame.configs;
 import me.cfstar188.zombiegame.ZombieGame;
 import me.cfstar188.zombiegame.builders.KitBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
+import me.cfstar188.zombiegame.items.CustomArmor;
 import me.cfstar188.zombiegame.items.CustomItem;
 import me.cfstar188.zombiegame.kits.Kit;
 import org.bukkit.Material;
@@ -172,27 +173,39 @@ public class KitConfig {
     private HashMap<String, ItemStack> establishArmor(List<?> armorData) {
 
         HashMap<String, ItemStack> armor = new HashMap<>();
-
         if (armorData != null) {
 
             for (Object armorPiece: armorData) {
 
-                String materialName = ((String) armorPiece).toUpperCase();
-                Material material = Material.getMaterial(materialName);
+                String materialName = (String) armorPiece;
+                ItemStack itemStack;
 
                 // error checking
-                if (material == null) {
-                    System.out.println(CustomError.getInvalidMaterialError(materialName));
-                    material = Material.BARRIER;
+                if (CustomArmorConfig.contains(materialName)) {
+                    itemStack = CustomArmorConfig.createCustomItemStack(materialName, 1);
+                    materialName = CustomArmorConfig.getCustomArmor(materialName).getMaterial().name();
+                }
+                else {
+
+                    materialName = materialName.toUpperCase();
+                    Material material = Material.getMaterial(materialName);
+
+                    if (material == null) {
+                        itemStack = new ItemStack(Material.BARRIER);
+                    }
+                    else {
+                        itemStack = new ItemStack(material);
+                    }
+
                 }
 
                 String armorType = getArmorType(materialName);
 
                 if (armorType.isEmpty()) {
-                    System.out.println(CustomError.getCustomError(material + " is an invalid armor piece"));
+                    System.out.println(CustomError.getCustomError(materialName + " is an invalid armor piece"));
                 }
 
-                armor.put(armorType, new ItemStack(material));
+                armor.put(armorType, itemStack);
 
             }
 

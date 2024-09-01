@@ -1,8 +1,8 @@
 package me.cfstar188.zombiegame.builders;
 
+import me.cfstar188.zombiegame.items.CustomArmor;
 import me.cfstar188.zombiegame.items.CustomItem;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class CustomItemBuilder {
 

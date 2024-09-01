@@ -1,12 +1,10 @@
 package me.cfstar188.zombiegame;
 
 import me.cfstar188.zombiegame.commands.GiveCurrencyCommand;
+import me.cfstar188.zombiegame.commands.GiveCustomCommand;
 import me.cfstar188.zombiegame.commands.KitCommand;
 import me.cfstar188.zombiegame.commands.RemoveCurrencyCommand;
-import me.cfstar188.zombiegame.configs.CustomItemConfig;
-import me.cfstar188.zombiegame.configs.HealingConfig;
-import me.cfstar188.zombiegame.configs.KitConfig;
-import me.cfstar188.zombiegame.configs.ScoreboardConfig;
+import me.cfstar188.zombiegame.configs.*;
 import me.cfstar188.zombiegame.databases.CurrencyDatabase;
 import me.cfstar188.zombiegame.databases.KitCooldownDatabase;
 import me.cfstar188.zombiegame.listeners.*;
@@ -67,6 +65,7 @@ public final class ZombieGame extends JavaPlugin {
     private void registerConfigs() {
         HealingConfig.getInstance(this);
         CustomItemConfig.getInstance(this);
+        CustomArmorConfig.getInstance(this);
         KitConfig.getInstance(this);
         ScoreboardConfig.getInstance(this);
     }
@@ -75,6 +74,7 @@ public final class ZombieGame extends JavaPlugin {
         Objects.requireNonNull(getCommand("kits")).setExecutor(new KitCommand());
         Objects.requireNonNull(getCommand("givecurrency")).setExecutor(new GiveCurrencyCommand());
         Objects.requireNonNull(getCommand("removecurrency")).setExecutor(new RemoveCurrencyCommand());
+        Objects.requireNonNull(getCommand("givecustom")).setExecutor(new GiveCustomCommand());
     }
 
     private void registerDatabases() {

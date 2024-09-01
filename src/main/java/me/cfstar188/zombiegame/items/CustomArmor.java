@@ -5,15 +5,15 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CustomItem {
+public class CustomArmor{
 
     private final String lore;
-    private final double damage;
+    private final double armorLevel;
     private final Material material;
 
-    public CustomItem(String lore, double damage, Material material) {
+    public CustomArmor(String lore, double armorLevel, Material material) {
         this.lore = lore;
-        this.damage = damage;
+        this.armorLevel = armorLevel;
         this.material = material;
     }
 
@@ -21,8 +21,8 @@ public class CustomItem {
         return new ArrayList<>(Arrays.asList(lore.split("\n")));
     }
 
-    public double getDamage() {
-        return this.damage;
+    public double getArmorLevel() {
+        return this.armorLevel;
     }
 
     public Material getMaterial() {

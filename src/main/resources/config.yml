@@ -11,9 +11,10 @@ custom-items:
     material: oxeye_daisy
 
 custom-armor:
-  - name:
-
-custom-armor:
+  - name: Special Chestplate
+    lore: A special one
+    armor-level: 10.25
+    material: diamond_chestplate
 
 # PLEASE READ BEFORE MODIFYING scoreboard:
 # -display-player-currency must be either true or false
@@ -69,6 +70,7 @@ kits:
       - iron_chestplate
       - iron_leggings
       - iron_boots
+      - Special Chestplate
     cooldown: 0.05
 
   - name: Gold Archer

@@ -21,3 +21,6 @@ commands:
       - takecurrency
       - takemoney
       - removemoney
+  givecustom:
+    description: Gives a custom item or armor piece to the specified player
+    usage: /givecustom <player> <item> <amount>

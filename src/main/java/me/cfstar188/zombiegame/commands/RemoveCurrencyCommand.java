@@ -18,7 +18,7 @@ public class RemoveCurrencyCommand implements CommandExecutor {
 
         if (strings.length != 2) {
             sender.sendMessage(ChatColor.RED + "This command takes two arguments.");
-            return true;
+            return false;
         }
 
         Player player = Bukkit.getPlayer(strings[0]);
@@ -31,6 +31,7 @@ public class RemoveCurrencyCommand implements CommandExecutor {
             currency = Integer.parseInt(strings[1]);
         } catch (NumberFormatException e) {
             sender.sendMessage(ChatColor.RED + "The amount must be an integer");
+            return false;
         }
 
 

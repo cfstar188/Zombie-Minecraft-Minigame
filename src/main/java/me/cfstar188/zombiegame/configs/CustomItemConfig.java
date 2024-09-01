@@ -21,11 +21,11 @@ Saves the data about custom items from config.yml
 */
 public class CustomItemConfig {
 
-    private ZombieGame plugin;
-    public static CustomItemConfig instance;
-    private static HashMap<String, CustomItem> nameToCustomItem = new HashMap<>();
+    ZombieGame plugin;
+    static CustomItemConfig instance;
+    static HashMap<String, CustomItem> nameToCustomItem = new HashMap<>();
 
-    private CustomItemConfig(ZombieGame plugin) {
+    public CustomItemConfig(ZombieGame plugin) {
         this.plugin = Objects.requireNonNull(plugin, CustomError.getCustomError("Plugin cannot be null"));
         establishHashmap(Objects.requireNonNull(plugin.getConfig().getList("custom-items"), CustomError.getCustomError("CustomItem config cannot be null")));
     }

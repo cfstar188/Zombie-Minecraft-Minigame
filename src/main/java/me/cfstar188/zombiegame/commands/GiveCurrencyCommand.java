@@ -18,7 +18,7 @@ public class GiveCurrencyCommand implements CommandExecutor {
 
         if (strings.length != 2) {
             sender.sendMessage(ChatColor.RED + "This command takes two arguments.");
-            return true;
+            return false;
         }
 
         Player player = Bukkit.getPlayer(strings[0]);
@@ -26,17 +26,19 @@ public class GiveCurrencyCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Player is not on the server.");
             return true;
         }
-        int currency = 0;
+        int currency;
         try {
             currency = Integer.parseInt(strings[1]);
         } catch (NumberFormatException e) {
             sender.sendMessage(ChatColor.RED + "The amount must be an integer");
+            return false;
         }
 
         try {
             CurrencyDatabase.giveCurrency(player, currency);
         } catch (SQLException e) {
             sender.sendMessage(ChatColor.RED + "There is a problem with the currency database.");
+            return true;
         }
         return true;
 
