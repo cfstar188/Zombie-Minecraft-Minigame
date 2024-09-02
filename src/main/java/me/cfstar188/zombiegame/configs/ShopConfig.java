@@ -1,45 +1,44 @@
 package me.cfstar188.zombiegame.configs;
 
 import me.cfstar188.zombiegame.ZombieGame;
-import me.cfstar188.zombiegame.builders.KitBuilder;
+import me.cfstar188.zombiegame.builders.ShopCategoryBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
 import me.cfstar188.zombiegame.kits.Kit;
-
+import me.cfstar188.zombiegame.kits.ShopCategory;
+import me.cfstar188.zombiegame.misc.FormatNum;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+
 import java.util.*;
 
-/*
-Saves the data about kits from config.yml
-*/
-public class KitConfig {
+public class ShopConfig {
 
-    private static KitConfig instance; // for singleton design pattern
-    private static final HashMap<String, Kit> nameToKit = new HashMap<>();
-    private static int kitGUISize;
+    private static ShopConfig instance; // for singleton design pattern
+    private static final HashMap<String, ShopCategory> nameToCategory = new HashMap<>();
+    private static int shopGUISize;
 
-    private KitConfig(ZombieGame plugin) {
-        establishKits(Objects.requireNonNull(plugin.getConfig().getList("kits")));
+    private ShopConfig(ZombieGame plugin) {
+        establishCategories(Objects.requireNonNull(plugin.getConfig().getList("shop")));
     }
 
     // there should only ever be one instance of KitConfig
     public static synchronized void getInstance(ZombieGame plugin) {
         if (instance == null) {
-            instance = new KitConfig(plugin);
+            instance = new ShopConfig(plugin);
         }
     }
 
-    private void establishKits(List<?> kits) {
+    private void establishCategories(List<?> categories) {
 
         int maxSlot = 8;
 
-        for (Object kit : kits) {
+        for (Object category : categories) {
 
             // extract data from kit
-            String kitName = (String) ((LinkedHashMap<?, ?>) kit).get("name");
+            String categoryName = (String) ((LinkedHashMap<?, ?>) category).get("category-name");
 
             // dealing with representative item
-            String representativeItemName = ((String) ((LinkedHashMap<?, ?>) kit).get("representative-item")).toUpperCase();
+            String representativeItemName = ((String) ((LinkedHashMap<?, ?>) category).get("representative-item")).toUpperCase();
             Material material = Material.valueOf(representativeItemName);
 
             // error checking
@@ -50,87 +49,81 @@ public class KitConfig {
 
             ItemStack representativeItem = new ItemStack(Material.valueOf(representativeItemName));
 
-            Integer slot = (Integer) ((LinkedHashMap<?, ?>) kit).get("slot");
+            Integer slot = (Integer) ((LinkedHashMap<?, ?>) category).get("slot");
             maxSlot = Math.max(maxSlot, slot);
+            HashMap<String, Integer> entityNameToCost = new HashMap<>();
 
             // dealing with items
             List<?> itemData;
             try {
-                itemData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("items");
+                itemData = (List<?>) ((LinkedHashMap<?, ?>) category).get("items");
             }
             catch (NullPointerException e) {
                 itemData = new ArrayList<>();
             }
             catch (ClassCastException e) {
-                System.out.println(CustomError.getCustomError("Items config is not formatted correctly (check " + kitName + ")"));
+                System.out.println(CustomError.getCustomError("Items config is not formatted correctly (check " + categoryName + ")"));
                 return;
             }
-            ArrayList<ItemStack> items = establishItems(itemData);
+            ArrayList<ItemStack> items = establishItems(itemData, entityNameToCost);
 
             // dealing with armor
             List<?> armorData;
             try {
-                armorData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("armor");
+                armorData = (List<?>) ((LinkedHashMap<?, ?>) category).get("armor");
             }
             catch (NullPointerException e) {
                 armorData = new ArrayList<>();
             }
             catch (ClassCastException e) {
-                System.out.println(CustomError.getCustomError("Armor config is not formatted correctly (check " + kitName + ")"));
+                System.out.println(CustomError.getCustomError("Armor config is not formatted correctly (check " + categoryName + ")"));
                 return;
             }
-            HashMap<String, ItemStack> armor = establishArmor(armorData);
+            HashMap<String, ItemStack> armor = establishArmor(armorData, entityNameToCost);
 
             // dealing with weapons
             List<?> weaponData;
             try {
-                weaponData = (List<?>) ((LinkedHashMap<?, ?>) kit).get("weapons");
+                weaponData = (List<?>) ((LinkedHashMap<?, ?>) category).get("weapons");
             }
             catch (NullPointerException e) {
                 weaponData = new ArrayList<>();
             }
             catch (ClassCastException e) {
-                System.out.println(CustomError.getCustomError("Weapon config is not formatted correctly (check " + kitName + ")"));
+                System.out.println(CustomError.getCustomError("Weapon config is not formatted correctly (check " + categoryName + ")"));
                 return;
             }
-            HashMap<String, Integer> weaponNameToQuantity = establishWeapons(weaponData);
+            HashMap<String, Integer> weaponNameToQuantity = establishWeapons(weaponData, entityNameToCost);
 
             // error checking to see if a kit has too many items and armor pieces
             if (items.size() + armor.size() + weaponNameToQuantity.size() > 18) {
-                System.out.println(CustomError.getCustomError(kitName + " contains more than 18 entities"));
+                System.out.println(CustomError.getCustomError(categoryName + " contains more than 18 entities"));
                 return;
             }
 
-            // dealing with cooldown
-            double cooldown;
-            try {
-                cooldown = (double) ((LinkedHashMap<?, ?>) kit).get("cooldown");
-            }
-            catch (NullPointerException e) {
-                cooldown = 0;
-            }
 
             // put into hashmap // kitName, slot, representativeItem, items, armor
-            nameToKit.put(kitName, new KitBuilder()
-                    .setName(kitName)
+            nameToCategory.put(categoryName, new ShopCategoryBuilder()
+                    .setName(categoryName)
                     .setSlot(slot)
                     .setRepresentativeItem(representativeItem)
                     .setItems(items)
                     .setArmor(armor)
                     .setWeaponNameToQuantity(weaponNameToQuantity)
-                    .setCooldown(cooldown) // setCooldown() should have an hours input
+                    .setEntityNameToCost(entityNameToCost)
                     .build());
+            System.out.println(entityNameToCost);
 
         }
 
         // generating the GUI size based on maximum slot
         int proposedInventorySize = ((maxSlot + 8) / 9) * 9;
-        kitGUISize = Math.min(proposedInventorySize, 54);
+        shopGUISize = Math.min(proposedInventorySize, 54);
 
     }
 
     // return the array of ItemStacks (each ItemStack stores the item and the quantity)
-    private ArrayList<ItemStack> establishItems(List<?> itemData) {
+    private ArrayList<ItemStack> establishItems(List<?> itemData, HashMap<String, Integer> entityNameToCost) {
 
         ArrayList<ItemStack> items = new ArrayList<>();
 
@@ -154,8 +147,10 @@ public class KitConfig {
                         itemStack = new ItemStack(material, quantity);
                     }
                 }
-
                 items.add(itemStack);
+
+                int cost = (int) ((LinkedHashMap<?, ?>) item).get("cost");
+                entityNameToCost.put(materialName, cost);
 
             }
 
@@ -166,33 +161,30 @@ public class KitConfig {
     }
 
     // return the array of ItemStacks of armor
-    private HashMap<String, ItemStack> establishArmor(List<?> armorData) {
+    private HashMap<String, ItemStack> establishArmor(List<?> armorData, HashMap<String, Integer> entityNameToCost) {
 
         HashMap<String, ItemStack> armor = new HashMap<>();
         if (armorData != null) {
 
             for (Object armorPiece: armorData) {
 
-                String materialName = (String) armorPiece;
+                String materialName = ((String) ((LinkedHashMap<?, ?>) armorPiece).get("name"));
+                Material material;
+                int quantity = (int) ((LinkedHashMap<?, ?>) armorPiece).get("quantity");
                 ItemStack itemStack;
-
-                // error checking
                 if (CustomArmorConfig.contains(materialName)) {
                     itemStack = CustomArmorConfig.createCustomItemStack(materialName, 1);
                     materialName = CustomArmorConfig.getCustomArmor(materialName).getMaterial().name();
                 }
                 else {
-
                     materialName = materialName.toUpperCase();
-                    Material material = Material.getMaterial(materialName);
-
+                    material = Material.getMaterial(materialName);
                     if (material == null) {
-                        itemStack = new ItemStack(Material.BARRIER);
+                        itemStack = new ItemStack(Material.BARRIER, quantity);
                     }
                     else {
-                        itemStack = new ItemStack(material);
+                        itemStack = new ItemStack(material, quantity);
                     }
-
                 }
 
                 String armorType = getArmorType(materialName);
@@ -200,8 +192,10 @@ public class KitConfig {
                 if (armorType.isEmpty()) {
                     System.out.println(CustomError.getCustomError(materialName + " is an invalid armor piece"));
                 }
-
                 armor.put(armorType, itemStack);
+
+                int cost = (int) ((LinkedHashMap<?, ?>) armorPiece).get("cost");
+                entityNameToCost.put(materialName, cost);
 
             }
 
@@ -212,7 +206,7 @@ public class KitConfig {
     }
 
     // return the array of weapon names
-    private HashMap<String, Integer> establishWeapons(List<?> weaponData) {
+    private HashMap<String, Integer> establishWeapons(List<?> weaponData, HashMap<String, Integer> entityNameToCost) {
 
         HashMap<String, Integer> weaponNameToQuantity = new HashMap<>();
         if (weaponData != null) {
@@ -220,6 +214,8 @@ public class KitConfig {
                 String weaponName = ((String) ((LinkedHashMap<?, ?>) weapon).get("name"));
                 int quantity = (int) ((LinkedHashMap<?, ?>) weapon).get("quantity");
                 weaponNameToQuantity.put(weaponName, quantity);
+                int cost = (int) ((LinkedHashMap<?, ?>) weapon).get("cost");
+                entityNameToCost.put(weaponName, cost);
             }
         }
         return weaponNameToQuantity;
@@ -252,12 +248,12 @@ public class KitConfig {
     /*
     Getter methods
     */
-    public static int getKitGUISize() {
-        return kitGUISize;
+    public static int getShopGUISize() {
+        return shopGUISize;
     }
 
-    public static HashMap<String, Kit> getNameToKit() {
-        return nameToKit;
+    public static HashMap<String, ShopCategory> getNameToCategory() {
+        return nameToCategory;
     }
 
 }

@@ -1,7 +1,7 @@
 # PLEASE READ BEFORE MODIFYING ANYTHING
-# -make sure to follow the format of the default config.yml (i.e., don't add custom field names)
+# -make sure to not break the list formatting of the default config.yml
 
-# PLEASE READ BEFORE MODIFYING scoreboard:
+# PLEASE READ BEFORE MODIFYING custom-items:
 # -damage is in hearts
 # -material must be a valid Minecraft item (i.e., cooked_beef is valid but steak is not)
 custom-items:
@@ -10,6 +10,9 @@ custom-items:
     damage: 10
     material: oxeye_daisy
 
+# PLEASE READ BEFORE MODIFYING custom-armor:
+# -armor-level needs to be an integer from 1 to 20
+# -material must be a valid piece of Minecraft armor (i.e., diamond_chestplate, leather_boots)
 custom-armor:
   - name: Special Chestplate
     lore: A special one
@@ -43,6 +46,39 @@ healing:
   - material: red_dye
     hearts-gained: 5
     waiting-time: 2.1
+
+shop:
+  - category-name: Weapons
+    representative-item: blaze_rod
+    slot: 0
+    items:
+      - name: diamond_sword
+        quantity: 1
+        cost: 10
+    weapons:
+      - name: AK_47
+        quantity: 1
+        cost: 100
+      - name: 50_GS
+        quantity: 1
+        cost: 50
+    armor:
+      - name: diamond_chestplate
+        quantity: 1
+        cost: 5
+  - category-name: Wool
+    representative-item: white_wool
+    slot: 1
+    items:
+      - name: white_wool
+        quantity: 64
+        cost: 10
+      - name: red_wool
+        quantity: 64
+        cost: 78
+      - name: pink_wool
+        quantity: 64
+        cost: 69
 
 # PLEASE READ BEFORE MODIFYING KITS:
 # -cooldown is in hours

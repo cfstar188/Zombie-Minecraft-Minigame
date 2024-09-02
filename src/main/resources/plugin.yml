@@ -24,3 +24,12 @@ commands:
   givecustom:
     description: Gives a custom item or armor piece to the specified player
     usage: /givecustom <player> <item> <amount>
+  shop:
+    description: Opens the shop
+    usage: /shop
+    aliases:
+      - gunshop
+      - weaponshop
+      - store
+      - gunstore
+      - weaponstore
