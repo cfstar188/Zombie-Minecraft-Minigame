@@ -3,9 +3,8 @@ package me.cfstar188.zombiegame.configs;
 import me.cfstar188.zombiegame.ZombieGame;
 import me.cfstar188.zombiegame.builders.ShopCategoryBuilder;
 import me.cfstar188.zombiegame.errors.CustomError;
-import me.cfstar188.zombiegame.kits.Kit;
 import me.cfstar188.zombiegame.kits.ShopCategory;
-import me.cfstar188.zombiegame.misc.FormatNum;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -148,7 +147,6 @@ public class ShopConfig {
                     }
                 }
                 items.add(itemStack);
-
                 int cost = (int) ((LinkedHashMap<?, ?>) item).get("cost");
                 entityNameToCost.put(materialName, cost);
 

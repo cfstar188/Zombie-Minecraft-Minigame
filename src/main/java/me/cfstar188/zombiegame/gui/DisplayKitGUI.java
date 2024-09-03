@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +21,8 @@ public class DisplayKitGUI {
         Inventory inventory = Bukkit.createInventory(null, 45, kit.getName());
 
         // set the back and confirm buttons for the inventory
-        setBackButton(inventory);
-        setConfirmButton(inventory);
+        SetButtons.setSingleBackButton(inventory);
+        SetButtons.setSingleConfirmButton(inventory);
 
         // set all items in the inventory
         setItems(inventory, kit);
@@ -31,25 +30,7 @@ public class DisplayKitGUI {
         player.openInventory(inventory);
     }
 
-    private void setBackButton(Inventory inventory) {
-        ItemStack backButton = new ItemStack(ButtonGUI.getBackButton());
-        ItemMeta backButtonMeta = backButton.getItemMeta();
-        assert backButtonMeta != null;
-        backButtonMeta.setDisplayName("§cBack to menu");
-        backButton.setItemMeta(backButtonMeta);
-        inventory.setItem(0, backButton);
-    }
-
-    private void setConfirmButton(Inventory inventory) {
-        ItemStack confirmButton = new ItemStack(ButtonGUI.getConfirmButton());
-        ItemMeta confirmButtonMeta = confirmButton.getItemMeta();
-        assert confirmButtonMeta != null;
-        confirmButtonMeta.setDisplayName("§aConfirm kit");
-        confirmButton.setItemMeta(confirmButtonMeta);
-        inventory.setItem(44, confirmButton);
-    }
-
-    private void setItems(Inventory inventory, Kit kit) {
+    void setItems(Inventory inventory, Kit kit) {
 
         ArrayList<ItemStack> items = kit.getItems();
         HashMap<String, Integer> weaponNameToQuantity = kit.getWeaponNameToQuantity();
