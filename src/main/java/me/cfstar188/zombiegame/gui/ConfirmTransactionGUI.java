@@ -3,19 +3,15 @@ package me.cfstar188.zombiegame.gui;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Collections;
 
 /*
 The confirmation GUI for a kit
 */
-public class ConfirmKitGUI {
+public class ConfirmTransactionGUI {
 
-    public ConfirmKitGUI(Player player, String kitName) {
+    public ConfirmTransactionGUI(Player player, String name) {
 
-        Inventory inventory = Bukkit.createInventory(null, 45, "Confirm " + kitName);
+        Inventory inventory = Bukkit.createInventory(null, 45, "Confirm " + name);
 
         // setting back and confirm buttons
         SetButtons.setMultipleBackButtons(inventory);

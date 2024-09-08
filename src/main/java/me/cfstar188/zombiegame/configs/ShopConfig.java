@@ -7,8 +7,12 @@ import me.cfstar188.zombiegame.kits.ShopCategory;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
+
+import static me.cfstar188.zombiegame.errors.CustomError.getAddToCustomArmorError;
+import static me.cfstar188.zombiegame.errors.CustomError.getAddToCustomItemsError;
 
 public class ShopConfig {
 
@@ -51,6 +55,7 @@ public class ShopConfig {
             Integer slot = (Integer) ((LinkedHashMap<?, ?>) category).get("slot");
             maxSlot = Math.max(maxSlot, slot);
             HashMap<String, Integer> entityNameToCost = new HashMap<>();
+            HashMap<String, ItemStack> entityNameToItemStack = new HashMap<>();
 
             // dealing with items
             List<?> itemData;
@@ -64,7 +69,7 @@ public class ShopConfig {
                 System.out.println(CustomError.getCustomError("Items config is not formatted correctly (check " + categoryName + ")"));
                 return;
             }
-            ArrayList<ItemStack> items = establishItems(itemData, entityNameToCost);
+            ArrayList<ItemStack> items = establishItems(itemData, entityNameToCost, entityNameToItemStack);
 
             // dealing with armor
             List<?> armorData;
@@ -78,7 +83,7 @@ public class ShopConfig {
                 System.out.println(CustomError.getCustomError("Armor config is not formatted correctly (check " + categoryName + ")"));
                 return;
             }
-            HashMap<String, ItemStack> armor = establishArmor(armorData, entityNameToCost);
+            HashMap<String, ItemStack> armor = establishArmor(armorData, entityNameToCost, entityNameToItemStack);
 
             // dealing with weapons
             List<?> weaponData;
@@ -92,7 +97,7 @@ public class ShopConfig {
                 System.out.println(CustomError.getCustomError("Weapon config is not formatted correctly (check " + categoryName + ")"));
                 return;
             }
-            HashMap<String, Integer> weaponNameToQuantity = establishWeapons(weaponData, entityNameToCost);
+            HashMap<String, Integer> weaponNameToQuantity = establishWeapons(weaponData, entityNameToCost, entityNameToItemStack);
 
             // error checking to see if a kit has too many items and armor pieces
             if (items.size() + armor.size() + weaponNameToQuantity.size() > 18) {
@@ -109,7 +114,7 @@ public class ShopConfig {
                     .setItems(items)
                     .setArmor(armor)
                     .setWeaponNameToQuantity(weaponNameToQuantity)
-                    .setEntityNameToCost(entityNameToCost)
+                    .setEntityNameToCost(entityNameToCost).setEntityNameToItemStack(entityNameToItemStack)
                     .build());
             System.out.println(entityNameToCost);
 
@@ -122,7 +127,7 @@ public class ShopConfig {
     }
 
     // return the array of ItemStacks (each ItemStack stores the item and the quantity)
-    private ArrayList<ItemStack> establishItems(List<?> itemData, HashMap<String, Integer> entityNameToCost) {
+    private ArrayList<ItemStack> establishItems(List<?> itemData, HashMap<String, Integer> entityNameToCost, HashMap<String, ItemStack> entityNameToItemStack) {
 
         ArrayList<ItemStack> items = new ArrayList<>();
 
@@ -131,24 +136,24 @@ public class ShopConfig {
             for (Object item : itemData) {
 
                 String materialName = ((String) ((LinkedHashMap<?, ?>) item).get("name"));
-                Material material;
                 int quantity = (int) ((LinkedHashMap<?, ?>) item).get("quantity");
                 ItemStack itemStack;
                 if (CustomItemConfig.contains(materialName)) {
                     itemStack = CustomItemConfig.createCustomItemStack(materialName, quantity);
                 }
                 else {
-                    material = Material.getMaterial(materialName.toUpperCase());
-                    if (material == null) {
-                        itemStack = new ItemStack(Material.BARRIER, quantity);
-                    }
-                    else {
-                        itemStack = new ItemStack(material, quantity);
-                    }
+                    System.out.println(getAddToCustomItemsError(materialName));
+                    itemStack = new ItemStack(Material.BARRIER, quantity);
                 }
                 items.add(itemStack);
                 int cost = (int) ((LinkedHashMap<?, ?>) item).get("cost");
-                entityNameToCost.put(materialName, cost);
+
+                ItemMeta meta = itemStack.getItemMeta();
+                assert meta != null;
+                System.out.println(materialName + ": " + meta.getDisplayName());
+                String displayName = meta.getDisplayName();
+                entityNameToCost.put(displayName, cost);
+                entityNameToItemStack.put(displayName, itemStack);
 
             }
 
@@ -159,7 +164,7 @@ public class ShopConfig {
     }
 
     // return the array of ItemStacks of armor
-    private HashMap<String, ItemStack> establishArmor(List<?> armorData, HashMap<String, Integer> entityNameToCost) {
+    private HashMap<String, ItemStack> establishArmor(List<?> armorData, HashMap<String, Integer> entityNameToCost, HashMap<String, ItemStack> entityNameToItemStack) {
 
         HashMap<String, ItemStack> armor = new HashMap<>();
         if (armorData != null) {
@@ -167,7 +172,6 @@ public class ShopConfig {
             for (Object armorPiece: armorData) {
 
                 String materialName = ((String) ((LinkedHashMap<?, ?>) armorPiece).get("name"));
-                Material material;
                 int quantity = (int) ((LinkedHashMap<?, ?>) armorPiece).get("quantity");
                 ItemStack itemStack;
                 if (CustomArmorConfig.contains(materialName)) {
@@ -175,14 +179,8 @@ public class ShopConfig {
                     materialName = CustomArmorConfig.getCustomArmor(materialName).getMaterial().name();
                 }
                 else {
-                    materialName = materialName.toUpperCase();
-                    material = Material.getMaterial(materialName);
-                    if (material == null) {
-                        itemStack = new ItemStack(Material.BARRIER, quantity);
-                    }
-                    else {
-                        itemStack = new ItemStack(material, quantity);
-                    }
+                    System.out.println(getAddToCustomArmorError(materialName));
+                    itemStack = new ItemStack(Material.BARRIER, quantity);
                 }
 
                 String armorType = getArmorType(materialName);
@@ -193,7 +191,12 @@ public class ShopConfig {
                 armor.put(armorType, itemStack);
 
                 int cost = (int) ((LinkedHashMap<?, ?>) armorPiece).get("cost");
-                entityNameToCost.put(materialName, cost);
+
+                ItemMeta meta = itemStack.getItemMeta();
+                assert meta != null;
+                String displayName = meta.getDisplayName();
+                entityNameToCost.put(displayName, cost);
+                entityNameToItemStack.put(displayName, itemStack);
 
             }
 
@@ -204,7 +207,7 @@ public class ShopConfig {
     }
 
     // return the array of weapon names
-    private HashMap<String, Integer> establishWeapons(List<?> weaponData, HashMap<String, Integer> entityNameToCost) {
+    private HashMap<String, Integer> establishWeapons(List<?> weaponData, HashMap<String, Integer> entityNameToCost, HashMap<String, ItemStack> entityNameToItemStack) {
 
         HashMap<String, Integer> weaponNameToQuantity = new HashMap<>();
         if (weaponData != null) {

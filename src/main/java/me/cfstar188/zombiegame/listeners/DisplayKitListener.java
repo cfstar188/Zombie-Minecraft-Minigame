@@ -1,7 +1,7 @@
 package me.cfstar188.zombiegame.listeners;
 
 import me.cfstar188.zombiegame.configs.KitConfig;
-import me.cfstar188.zombiegame.gui.ConfirmKitGUI;
+import me.cfstar188.zombiegame.gui.ConfirmTransactionGUI;
 import me.cfstar188.zombiegame.gui.MainKitGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +31,7 @@ public class DisplayKitListener implements Listener {
                     new MainKitGUI(player);
                     break;
                 case 44:
-                    new ConfirmKitGUI(player, inventoryName);
+                    new ConfirmTransactionGUI(player, inventoryName);
             }
         }
     }

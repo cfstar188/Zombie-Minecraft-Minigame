@@ -9,6 +9,18 @@ custom-items:
     lore: A spiky one
     damage: 10
     material: oxeye_daisy
+  - name: Diamond Sword
+    lore: A diamond one
+    damage: 5
+    material: diamond_sword
+  - name: Red Wool
+    lore: A red one
+    damage: 0
+    material: red_wool
+  - name: Pink Wool
+    lore: A pink one
+    damage: 0
+    material: pink_wool
 
 # PLEASE READ BEFORE MODIFYING custom-armor:
 # -armor-level needs to be an integer from 1 to 20
@@ -17,6 +29,10 @@ custom-armor:
   - name: Special Chestplate
     lore: A special one
     armor-level: 10.25
+    material: diamond_chestplate
+  - name: Diamond Chestplate
+    lore: A diamond one
+    armor-level: 2
     material: diamond_chestplate
 
 # PLEASE READ BEFORE MODIFYING scoreboard:
@@ -52,7 +68,7 @@ shop:
     representative-item: blaze_rod
     slot: 0
     items:
-      - name: diamond_sword
+      - name: Diamond Sword
         quantity: 1
         cost: 10
     weapons:
@@ -63,20 +79,17 @@ shop:
         quantity: 1
         cost: 50
     armor:
-      - name: diamond_chestplate
+      - name: Diamond Chestplate
         quantity: 1
         cost: 5
   - category-name: Wool
     representative-item: white_wool
     slot: 1
     items:
-      - name: white_wool
-        quantity: 64
-        cost: 10
-      - name: red_wool
+      - name: Red Wool
         quantity: 64
         cost: 78
-      - name: pink_wool
+      - name: Pink Wool
         quantity: 64
         cost: 69
 

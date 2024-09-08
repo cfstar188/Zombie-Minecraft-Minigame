@@ -16,6 +16,7 @@ public class ShopCategoryBuilder {
     private HashMap<String, ItemStack> armor = new HashMap<>();
     private HashMap<String, Integer> weaponNameToQuantity = new HashMap<>();
     private HashMap<String, Integer> nameToPrice;
+    private HashMap<String, ItemStack> nameToItemStack;
 
     public ShopCategoryBuilder setName(String name) {
         this.name = name;
@@ -52,8 +53,13 @@ public class ShopCategoryBuilder {
         return this;
     }
 
+    public ShopCategoryBuilder setEntityNameToItemStack(HashMap<String, ItemStack> nameToItemStack) {
+        this.nameToItemStack = nameToItemStack;
+        return this;
+    }
+
     public ShopCategory build() {
-        return new ShopCategory(name, slot, representativeItem, items, armor, weaponNameToQuantity, 0, nameToPrice);
+        return new ShopCategory(name, slot, representativeItem, items, armor, weaponNameToQuantity, 0, nameToPrice, nameToItemStack);
     }
 
 }

@@ -21,7 +21,6 @@ public class DisplayShopCategoryGUI {
 
         // set the back and confirm buttons for the inventory
         SetButtons.setSingleBackButton(inventory);
-        SetButtons.setSingleConfirmButton(inventory);
 
         // set all items in the inventory
         setItems(inventory, category);

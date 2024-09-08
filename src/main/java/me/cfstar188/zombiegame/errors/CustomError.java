@@ -15,4 +15,13 @@ public class CustomError {
         return getCustomError(materialName + " is an invalid item");
     }
 
+    public static String getAddToCustomItemsError(String materialName)
+    {
+        return getCustomError(materialName + " needs to be added to the custom-items config");
+    }
+
+    public static String getAddToCustomArmorError(String materialName)
+    {
+        return getCustomError(materialName + " needs to be added to the custom-armor config");
+    }
 }
