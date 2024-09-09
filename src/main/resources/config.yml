@@ -56,10 +56,12 @@ currency-mobs:
 # -material must be a valid Minecraft item (i.e., cooked_beef is valid but steak is not)
 # -waiting-time is in seconds and must be an integer or decimal number
 healing:
-  - material: blue_dye
+  - name: Bandages
+    material: blue_dye
     hearts-gained: 2.5
     waiting-time: 1.2
-  - material: red_dye
+  - name: Med Kit
+    material: red_dye
     hearts-gained: 5
     waiting-time: 2.1
 

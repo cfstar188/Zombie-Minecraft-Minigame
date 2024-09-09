@@ -24,6 +24,7 @@ public class ShopCategory extends Kit {
         super(name, slot, representativeItem, items, armor, weaponNameToQuantity, cooldown);
         this.nameToPrice = nameToPrice;
         this.nameToItemStack = nameToItemStack;
+//        this.weaponDisplayNameToActualName =
     }
 
     public int getCost(String name) {

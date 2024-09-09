@@ -1,11 +1,8 @@
 package me.cfstar188.zombiegame.gui;
 
-import me.cfstar188.zombiegame.kits.Kit;
 import me.cfstar188.zombiegame.kits.ShopCategory;
-import me.cfstar188.zombiegame.misc.FormatTime;
 import me.deecaad.weaponmechanics.WeaponMechanicsAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -54,6 +51,7 @@ public class DisplayShopCategoryGUI {
                 ItemMeta itemMeta = weapon.getItemMeta();
                 assert itemMeta != null;
                 changeLore(itemMeta, category, weaponName);
+                itemMeta.setDisplayName(weaponName);
                 weapon.setItemMeta(itemMeta);
                 inventory.setItem(currSlot, weapon);
                 currSlot++;
